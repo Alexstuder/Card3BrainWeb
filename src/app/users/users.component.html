@@ -1,2 +1,30 @@
-<p>users works!</p>
-<h1>mal schauen</h1>
+<section class="container legend">
+  <h2 class="mt-4">User List</h2>
+  <div class="row " *ngFor="let user of userList.users; let i = index">
+    <div class="col-sm-9 py-1 my-1">
+      <span> {{user.firstName}} {{user.userName}} / {{user.mailAddress}}</span>
+      <span (click)=onDelete(user) class="cmd-buttons"><i class="fa fa-trash"></i></span>
+      <!-- <span (click)=onEdit(i) class="cmd-buttons"><i class="fa fa-edit"></i></span> -->
+    </div>
+  </div>
+</section>
+
+<section class="container legend" style="width: 250pt;padding-top: 20pt">
+  <h3 class="mt-4">new User</h3>
+  <div class="container" style="padding-left: 0;">
+    <div class="row">
+        <input type="text" id="firstNameTextField"  #firstNameTextField class="form-control"
+               placeholder="first name">
+    </div>
+    <div class="row">
+        <input type="text" id="userNameTextField"  #userNameTextField class="form-control"
+               placeholder="user name">
+    </div>
+    <div class="row">
+        <input type="text" id="mailAdressTextField"  #mailAdressTextField class="form-control"
+               placeholder="mail address">
+    </div>
+    <button class="btn btn-primary btn-sm" (click)="onCreateUser()">Create User</button>
+  </div>
+</section>
+
