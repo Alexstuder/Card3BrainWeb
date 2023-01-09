@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Category } from './category';
+import { User } from './user';
 
 
 export interface CategoryDto { 
-    message?: string;
-    token?: string;
-    categories?: Array<Category>;
+    id?: number;
+    categoryName?: string;
+    owner?: User;
 }
 

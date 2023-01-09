@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 
 import { Card } from '../model/models';
 import { CardsDto } from '../model/models';
+import { CategoryDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -147,16 +148,22 @@ export class CardRestControllerService {
     }
 
     /**
-     * @param category 
+     * @param categoryDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCardsByCategory(category: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<CardsDto>;
-    public getCardsByCategory(category: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<CardsDto>>;
-    public getCardsByCategory(category: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<CardsDto>>;
-    public getCardsByCategory(category: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (category === null || category === undefined) {
-            throw new Error('Required parameter category was null or undefined when calling getCardsByCategory.');
+    public getCardsByCategory(categoryDto: CategoryDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<CardsDto>;
+    public getCardsByCategory(categoryDto: CategoryDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<CardsDto>>;
+    public getCardsByCategory(categoryDto: CategoryDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<CardsDto>>;
+    public getCardsByCategory(categoryDto: CategoryDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (categoryDto === null || categoryDto === undefined) {
+            throw new Error('Required parameter categoryDto was null or undefined when calling getCardsByCategory.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (categoryDto !== undefined && categoryDto !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>categoryDto, 'categoryDto');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -187,6 +194,7 @@ export class CardRestControllerService {
         return this.httpClient.get<CardsDto>(`${this.configuration.basePath}/api/cards/`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -197,16 +205,22 @@ export class CardRestControllerService {
     }
 
     /**
-     * @param category 
+     * @param categoryDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCardsByCategory1(category: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<CardsDto>;
-    public getCardsByCategory1(category: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<CardsDto>>;
-    public getCardsByCategory1(category: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<CardsDto>>;
-    public getCardsByCategory1(category: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (category === null || category === undefined) {
-            throw new Error('Required parameter category was null or undefined when calling getCardsByCategory1.');
+    public getCardsByCategory1(categoryDto: CategoryDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<CardsDto>;
+    public getCardsByCategory1(categoryDto: CategoryDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<CardsDto>>;
+    public getCardsByCategory1(categoryDto: CategoryDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<CardsDto>>;
+    public getCardsByCategory1(categoryDto: CategoryDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (categoryDto === null || categoryDto === undefined) {
+            throw new Error('Required parameter categoryDto was null or undefined when calling getCardsByCategory1.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (categoryDto !== undefined && categoryDto !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>categoryDto, 'categoryDto');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -237,6 +251,7 @@ export class CardRestControllerService {
         return this.httpClient.get<CardsDto>(`${this.configuration.basePath}/api/cards`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

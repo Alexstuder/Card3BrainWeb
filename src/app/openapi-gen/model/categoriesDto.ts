@@ -9,11 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Card } from './card';
+import { Category } from './category';
 
 
-export interface CardsDto { 
+export interface CategoriesDto { 
     id?: number;
-    cards?: Array<Card>;
+    categories?: Array<Category>;
 }
 

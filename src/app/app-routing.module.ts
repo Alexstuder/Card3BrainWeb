@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {FirstCardComponent} from "./first-card/first-card.component";
 import {UsersComponent} from "./users/users.component";
 import {CategoryComponent} from "./category/category.component";
+import {ManageCardsComponent} from "./manage-cards/manage-cards.component";
+import {PlayCardsComponent} from "./play-cards/play-cards.component";
 
 const routes: Routes = [
   {
     path: 'home',
     component: CategoryComponent
-  },
-  {
-    path: 'myfirst',
-    component: FirstCardComponent
   },
   {
     path: 'category',
@@ -20,6 +17,14 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent
+  },
+  {
+    path: 'cards',
+    component: ManageCardsComponent
+  },
+  {
+    path: 'play',
+    component: PlayCardsComponent
   },
   {
     path: '',

@@ -13,8 +13,7 @@ import { User } from './user';
 
 
 export interface UsersDto { 
-    message?: string;
-    token?: string;
+    id?: number;
     users?: Array<User>;
 }
 

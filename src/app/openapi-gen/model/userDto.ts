@@ -12,8 +12,7 @@
 
 
 export interface UserDto { 
-    message?: string;
-    token?: string;
+    id?: number;
     userName?: string;
     firstName?: string;
     mailAddress?: string;

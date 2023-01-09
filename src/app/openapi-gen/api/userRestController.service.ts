@@ -18,7 +18,6 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { User } from '../model/models';
 import { UserDto } from '../model/models';
 import { UsersDto } from '../model/models';
 
@@ -88,16 +87,16 @@ export class UserRestControllerService {
     }
 
     /**
-     * @param user 
+     * @param userDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createUser(user: User, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<UserDto>;
-    public createUser(user: User, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<UserDto>>;
-    public createUser(user: User, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<UserDto>>;
-    public createUser(user: User, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling createUser.');
+    public createUser(userDto: UserDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<UserDto>;
+    public createUser(userDto: UserDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<UserDto>>;
+    public createUser(userDto: UserDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<UserDto>>;
+    public createUser(userDto: UserDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (userDto === null || userDto === undefined) {
+            throw new Error('Required parameter userDto was null or undefined when calling createUser.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -135,7 +134,7 @@ export class UserRestControllerService {
         }
 
         return this.httpClient.post<UserDto>(`${this.configuration.basePath}/api/users/add`,
-            user,
+            userDto,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -299,16 +298,16 @@ export class UserRestControllerService {
     }
 
     /**
-     * @param user 
+     * @param userDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateUser(user: User, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<UserDto>;
-    public updateUser(user: User, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<UserDto>>;
-    public updateUser(user: User, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<UserDto>>;
-    public updateUser(user: User, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (user === null || user === undefined) {
-            throw new Error('Required parameter user was null or undefined when calling updateUser.');
+    public updateUser(userDto: UserDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<UserDto>;
+    public updateUser(userDto: UserDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<UserDto>>;
+    public updateUser(userDto: UserDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<UserDto>>;
+    public updateUser(userDto: UserDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (userDto === null || userDto === undefined) {
+            throw new Error('Required parameter userDto was null or undefined when calling updateUser.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -346,7 +345,7 @@ export class UserRestControllerService {
         }
 
         return this.httpClient.put<UserDto>(`${this.configuration.basePath}/api/users/update`,
-            user,
+            userDto,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

@@ -1,0 +1,17 @@
+<section class="container legend" style="text-align:center">
+  <h2 class="mt-4" style="text-align:center">{{cardHeader}}</h2>
+  <div class="clickable" id="questionbox" (click)=onClickCard()>
+    <p>{{cardBody}}</p>
+  </div>
+  <div class="row-fluid" style="text-align:center">
+    <button class="span4" [disabled]="actualQuestion" (click)="onFalse()">
+      FALSE
+    </button>
+    <button class="span4"(click)=onClickCard()>
+      {{buttonText}}
+    </button>
+    <button class ="span4" [disabled]="actualQuestion" (click)="onTrue()">
+      CORRECT
+    </button>
+  </div>
+</section>

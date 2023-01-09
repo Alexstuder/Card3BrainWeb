@@ -1,7 +1,14 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {CategoryDto, Category, UserRestControllerService, User,UsersDto, UserDto, CategoryRestControllerService} from "../openapi-gen";
+import {
+  Category,
+  UserRestControllerService,
+  User,
+  UsersDto,
+  UserDto,
+  CategoryRestControllerService,
+  CategoriesDto
+} from "../openapi-gen";
 import {Subscription} from "rxjs";
-import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-category',
@@ -13,7 +20,8 @@ export class CategoryComponent implements OnInit, OnDestroy{
 
   userList: UsersDto = {};
   selectedUser: UserDto ={};
-  categoryList: CategoryDto = {};
+  categories: CategoriesDto = {};
+
   private userSubscription: Subscription | undefined;
   private categorySubscription: Subscription | undefined;
 
@@ -57,6 +65,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
       let categoryNameTemp: string = this.categoryNameTextField.nativeElement.value;
       if(this.selectedUser !==undefined){
         let user: User ={
+          id: this.selectedUser.id,
           userName: this.selectedUser.userName,
           firstName: this.selectedUser.firstName,
           mailAddress: this.selectedUser.mailAddress

@@ -16,13 +16,13 @@
   </div>
 </section>
 
-<section class="container legend" style="width: 250pt;padding-top: 20pt">
-  <h3 class="mt-4">new category</h3>
-  <div class="container" style="padding-left: 0;">
-    <div class="row">
-      <input type="text" id="categoryNameTextField"  #categoryNameTextField class="form-control"
-             placeholder="category name">
+<section class="container legend">
+  <h2 class="mt-4">select cards</h2>
+  <div class="row " *ngFor="let card of cards.cards; let i = index">
+    <div class="col-sm-9 py-1 my-1 clickable"(click)=onClickCard(card) >
+      <span> {{card.question}}</span>
     </div>
-    <button class="btn btn-primary btn-sm" (click)="onCreateCategory()">Create Category</button>
   </div>
 </section>
+
+<button class="btn btn-primary btn-sm" (click)="onLoad()">Learn Selected Category</button>
