@@ -1,17 +1,32 @@
-<section class="container legend" style="text-align:center">
-  <h2 class="mt-4" style="text-align:center">{{cardHeader}}</h2>
-  <div class="clickable" id="questionbox" (click)=onClickCard()>
-    <p>{{cardBody}}</p>
+<div class="card text-center">
+  <div class="card-header">
+    <h2>{{cardHeader}}</h2>
   </div>
-  <div class="row-fluid" style="text-align:center">
-    <button class="span4" [disabled]="actualQuestion" (click)="onFalse()">
+  <div class="card-body">
+    <div class="clickable" id="questionbox" (click)=onClickCard()>
+      <p>{{cardBody}}</p>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+      <button type="button" class="btn btn-outline-primary" id="button-false"
+              data-bs-toggle="tooltip"
+              data-bs-title="Slide to the left will also mark the card as FALSE"
+              [disabled]="actualQuestion"
+              (click)="onFalse()">
       FALSE
     </button>
-    <button class="span4"(click)=onClickCard()>
-      {{buttonText}}
-    </button>
-    <button class ="span4" [disabled]="actualQuestion" (click)="onTrue()">
-      CORRECT
-    </button>
+      <button  type="button" class="btn btn-primary"
+               data-bs-toggle="tooltip"
+               data-bs-title="tap on the question to switch between Question and Answer"
+               (click)=onClickCard()>
+        {{buttonText}}
+      </button>
+      <button type="button" class="btn btn-outline-primary"
+              data-bs-toggle="tooltip"
+              data-bs-title="Slide to the right will also mark the card as CORRECT"
+              [disabled]="actualQuestion"
+              (click)="onTrue()">
+        CORRECT
+      </button>
+    </div>
   </div>
-</section>
+</div>

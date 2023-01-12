@@ -1,4 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import * as bootstrap from 'bootstrap';
 import {
   Card, CardsDto,
   Category,
@@ -18,7 +19,6 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
   cardsToPlay:CardsDto = {};
   actualCardNumber:number = 0;
   actualQuestion:Boolean = false;
-
 
   constructor() {}
 
@@ -55,6 +55,11 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
     this.cardsToPlay = cards;
     this.actualCardNumber = 0;
     this.showQuestion(true);
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
   }
   ngOnDestroy(): void {
   }

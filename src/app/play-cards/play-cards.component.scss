@@ -1,8 +1,4 @@
 
-.legend .row:nth-of-type(odd) div {
-  background-color:#EEEEEE;
-}
-
 .clickable:hover {
   box-shadow: 0 0 1px 1px rgba(0,0,0,0.19),0 0 3px 3px rgba(0,0,0,0.19);
   cursor: pointer;
@@ -14,25 +10,6 @@
   border: 5px solid darkblue;
   text-align:center;
   background-color: #bdd2f8;
+  font-size: 150%;
   font-weight: bold;
-}
-
-
-.cmd-buttons {
-  padding-left: 5px;
-  padding-right: 5px;
-  float: right;
-}
-.cmd-buttons:hover {
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.19), 0 0 1px 1px rgba(0, 0, 0, 0.19);
-}
-
-.form-control {
-  font-size: 16px;
-  padding-left: 15px;
-  outline: none;
-  border: 1px solid #E8E8E8;
-}
-.row-fluid{
-  padding: 10px;
 }

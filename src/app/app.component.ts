@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastService } from './services/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'card2brainweb';
+
+  constructor(private toastService: ToastService) {}
+
+  showToast() {
+    this.toastService.showErrorToast('Error toast title', 'This is an error toast message.');
+  }
 }

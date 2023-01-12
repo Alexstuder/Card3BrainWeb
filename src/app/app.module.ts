@@ -9,6 +9,8 @@ import {ApiModule} from "./openapi-gen";
 import { CategoryComponent } from './category/category.component';
 import { ManageCardsComponent } from './manage-cards/manage-cards.component';
 import { PlayCardsComponent } from './play-cards/play-cards.component';
+import {ToastComponent} from "./components/toast/toast.component";
+import {ToasterComponent} from "./components/toaster/toaster.component";
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { PlayCardsComponent } from './play-cards/play-cards.component';
     UsersComponent,
     CategoryComponent,
     ManageCardsComponent,
-    PlayCardsComponent
+    PlayCardsComponent,
+    ToastComponent,
+    ToasterComponent
   ],
   imports: [
     BrowserModule,
