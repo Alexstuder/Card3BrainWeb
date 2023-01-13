@@ -4,11 +4,12 @@ import {UsersComponent} from "./users/users.component";
 import {CategoryComponent} from "./category/category.component";
 import {ManageCardsComponent} from "./manage-cards/manage-cards.component";
 import {PlayCardsComponent} from "./play-cards/play-cards.component";
+import {OverviewComponent} from "./overview/overview.component";
 
 const routes: Routes = [
   {
     path: 'home',
-    component: CategoryComponent
+    component: OverviewComponent
   },
   {
     path: 'category',
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'play',
     component: PlayCardsComponent
+  },
+  {
+    path: 'overview',
+    component: OverviewComponent
   },
   {
     path: '',

@@ -3,6 +3,8 @@ import {Subscription} from "rxjs";
 import {UserService} from "../services/user.service";
 import {UserRestControllerService, UsersDto} from "../openapi-gen"
 import {UserDto} from "../openapi-gen"
+import {ToastService} from "../services/toast.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-users,ngbd-collapse-horizontal',
@@ -18,8 +20,9 @@ export class UsersComponent implements OnInit, OnDestroy{
   userList: UsersDto = {};
   private subscription: Subscription | undefined;
 
-  constructor(private readonly userRestControllerService:UserRestControllerService,
-              private readonly userService:UserService) {}
+  constructor(private readonly userRestControllerService: UserRestControllerService,
+              private readonly userService: UserService,
+              private readonly toastService: ToastService) {}
 
   ngOnInit(): void {
     this.useOpenApiService();
@@ -32,10 +35,14 @@ export class UsersComponent implements OnInit, OnDestroy{
   }
 
   useOpenApiService(): void {
-    this.subscription = this.userRestControllerService.getAllUsers().subscribe({
-      next: (data) => this.userList = data,
-      error:(err) =>  console.log(err)
-    });
+    this.subscription = this.userRestControllerService.getAllUsers().subscribe(
+      data => {
+        this.userList = data;
+        },err =>{
+        if( !this.toastService.showHttpErrorToast(err))
+          this.toastService.showErrorToast('error','get all user gone wrong',);
+        console.log(err);
+      })
   }
 
   onDelete(user: UserDto) {
@@ -43,9 +50,11 @@ export class UsersComponent implements OnInit, OnDestroy{
       this.userRestControllerService.deleteUser(user).subscribe(
         data => {
           this.refreshList();
-        },
-        err => console.log(err)
-      );
+        },err =>{
+          if( !this.toastService.showHttpErrorToast(err))
+            this.toastService.showErrorToast('error','delete user gone wrong',);
+          console.log(err);
+        })
     }
   }
 
@@ -64,8 +73,11 @@ export class UsersComponent implements OnInit, OnDestroy{
       this.userRestControllerService.createUser(user).subscribe(
         data =>{
           this.refreshList();
-        },
-          err => console.log(err));
+        },err =>{
+          if( !this.toastService.showHttpErrorToast(err))
+            this.toastService.showErrorToast('error','create user gone wrong',);
+          console.log(err);
+        })
       this.firstNameTextField.nativeElement.value = "";
       this.userNameTextField.nativeElement.value = "";
       this.mailAdressTextField.nativeElement.value = "";

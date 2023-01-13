@@ -2,7 +2,7 @@
 
 <div class="container px-0 app">
   <!-- <nav class="fixed-top navbar navbar-expand-md bg-faded px-2"> -->
-  <nav class="navbar bg-body-tertiary navbar-expand-md px-3 bg-faded">
+  <nav class="fixed-top navbar bg-body-tertiary navbar-expand-md px-3 bg-faded">
     <div [routerLink]="['/home']" class="navbar-brand"><img alt="card2brain-logo" src="assets/ic_card2brain_logo.png" width="50px"> Todo App
     </div>
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar">
@@ -26,27 +26,18 @@
         <li class="nav-item ">
           <a class="nav-link" [routerLink]="['/play']">Learn</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://github.com/RJ2334/Card2Brain" target="_blank">Github Backend</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://github.com/RJ2334/Card2BrainWeb" target="_blank">Github Frontend</a>
+        <li class="nav-item ">
+          <a class="nav-link" [routerLink]="['/overview']">Overview</a>
         </li>
       </ul>
     </div>
   </nav>
 
-  <main class="px-3 mt-4 main">
+  <main class="px-3 mt-0 main">
     <router-outlet></router-outlet>
   </main>
 
-  <div class="card-container">
-    <button class="card card-small success" (click)="showToast()">
-      <span class="material-icons">checkmark</span>
-      <span>Show Toast</span>
-    </button>
-  </div>
-
+  <!-- <footer class="fixed-bottom px-3 mt-4 bg-light"> -->
   <footer class="fixed-bottom px-3 mt-4 bg-light">
     <section class="container d-flex justify-content-center justify-content-lg-between p-4 border-bottom" >
 

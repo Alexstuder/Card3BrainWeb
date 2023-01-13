@@ -11,6 +11,7 @@ import { ManageCardsComponent } from './manage-cards/manage-cards.component';
 import { PlayCardsComponent } from './play-cards/play-cards.component';
 import {ToastComponent} from "./components/toast/toast.component";
 import {ToasterComponent} from "./components/toaster/toaster.component";
+import { OverviewComponent } from './overview/overview.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {ToasterComponent} from "./components/toaster/toaster.component";
     ManageCardsComponent,
     PlayCardsComponent,
     ToastComponent,
-    ToasterComponent
+    ToasterComponent,
+    OverviewComponent
   ],
   imports: [
     BrowserModule,
