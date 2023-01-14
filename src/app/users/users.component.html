@@ -1,6 +1,6 @@
 <section class="container legend">
   <h2 class="mt-4">User List</h2>
-  <div class="row " *ngFor="let user of userList.users; let i = index">
+  <div class="row " *ngFor="let user of userList; let i = index">
     <div class="col-sm-9 py-1 my-1">
       <span> {{user.firstName}} {{user.userName}} / {{user.mailAddress}}</span>
       <span (click)=onDelete(user) class="cmd-buttons"><i class="fa fa-trash"></i></span>

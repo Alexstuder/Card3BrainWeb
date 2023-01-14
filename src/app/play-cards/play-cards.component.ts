@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as bootstrap from 'bootstrap';
 import {
-  Card, CardsDto,
-  Category,
-  User,
+  CardDto,
+  CategoryDto,
+  UserDto,
 } from "../openapi-gen";
 
 @Component({
@@ -16,43 +16,37 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
   cardBody: String = "";
   buttonText: String = "";
 
-  cardsToPlay:CardsDto = {};
+  cardsToPlay:Array<CardDto> | undefined;
   actualCardNumber:number = 0;
   actualQuestion:Boolean = false;
 
   constructor() {}
 
   ngOnInit(): void {
-    let user: User = {
+    let user: UserDto = {
       id:99,
       userName:"Hampi",
       firstName:"Müller",
       mailAddress: "Hampi@test.ch"
     }
-    let category:Category ={
+    let category:CategoryDto ={
       id :44,
-      owner:user,
+      owner:user.id,
       categoryName:"Mathe"
     }
-    let card1 : Card = {
+    let card1 : CardDto = {
       id: 1,
       question: "1+2",
       answer: "3",
-      category: category
+      categoryId: category.id
     };
-    let card2 : Card = {
+    let card2 : CardDto = {
       id: 2,
       question: "frage",
       answer: "antwort",
-      category: category
+      categoryId: category.id
     };
-    let cardsTemp:Card[] = [card1,card2];
-
-    let cards: CardsDto = {
-      id: 1,
-      cards: cardsTemp
-    }
-    this.cardsToPlay = cards;
+    this.cardsToPlay = [card1,card2];
     this.actualCardNumber = 0;
     this.showQuestion(true);
 
@@ -68,15 +62,15 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
     this.showQuestion(!this.actualQuestion);
   }
   showQuestion(showAnswer: boolean){
-    if (this.actualCardNumber < this.cardsToPlay!.cards!.length ?? 0) {
+    if (this.actualCardNumber < this.cardsToPlay!.length ?? 0) {
       this.actualQuestion = showAnswer;
       if (this.actualQuestion) {
         this.cardHeader = "Question";
-        this.cardBody = this.cardsToPlay!.cards![this.actualCardNumber].question ?? "";
+        this.cardBody = this.cardsToPlay![this.actualCardNumber].question ?? "";
         this.buttonText = "show answer";
       } else {
         this.cardHeader = "Answer";
-        this.cardBody = this.cardsToPlay!.cards![this.actualCardNumber].answer ?? "";
+        this.cardBody = this.cardsToPlay![this.actualCardNumber].answer ?? "";
         this.buttonText = "show question"
       }
     }
@@ -94,7 +88,7 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
 
   private nextCard(){
     this.actualCardNumber++;
-    if (this.actualCardNumber >= this.cardsToPlay!.cards!.length ?? 0){
+    if (this.actualCardNumber >= this.cardsToPlay!.length ?? 0){
       this.setToTheEnd()
     }else {
       this.showQuestion(true)

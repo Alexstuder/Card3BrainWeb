@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import {UserDto, UserRestControllerService, UsersDto} from "../openapi-gen";
+import {UserDto, UserRestControllerService} from "../openapi-gen";
 import {Subscription} from "rxjs";
-import {UserService} from "../services/user.service";
 import {ToastService} from "../services/toast.service";
-import { Inject }  from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-overview',
@@ -13,13 +10,12 @@ import { DOCUMENT } from '@angular/common';
 })
 export class OverviewComponent {
 
-  userList: UsersDto = {};
+  userList: Array<UserDto> | undefined;
   selectedUser: UserDto ={};
   selected: number | undefined;
   private userSubscription: Subscription | undefined;
 
   constructor(private readonly userRestControllerService: UserRestControllerService,
-              private readonly userService: UserService,
               private readonly toastService: ToastService) {
   }
 

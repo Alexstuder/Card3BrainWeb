@@ -1,14 +1,11 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from "rxjs";
 import {
-  Category,
   UserRestControllerService,
-  User,
-  UsersDto,
   UserDto,
   CategoryRestControllerService,
   CardRestControllerService,
-  CategoriesDto, CategoryDto, CardsDto, Card,
+  CategoryDto, CardDto,
 } from "../openapi-gen";
 
 @Component({
@@ -19,11 +16,11 @@ import {
 export class ManageCardsComponent implements OnInit, OnDestroy{
   @ViewChild('categoryNameTextField', {static: true}) categoryNameTextField: ElementRef | undefined;
 
-  userList: UsersDto = {};
+  userList: Array<UserDto> | undefined;
   selectedUser: UserDto ={};
-  categories: CategoriesDto = {};
+  categories: Array<CategoryDto> | undefined;
   selectedCategory: CategoryDto ={};
-  cards: CardsDto = {};
+  cards: Array<CardDto> | undefined;
 
   private userSubscription: Subscription | undefined;
   private categorySubscription: Subscription | undefined;
@@ -56,7 +53,7 @@ export class ManageCardsComponent implements OnInit, OnDestroy{
 
   updateCategories():void{
     if (this.selectedUser != undefined)  {
-      this.categorySubscription = this.categoryRestControllerService.getAllCategoriesOfUserName(this.selectedUser.userName).subscribe({
+      this.categorySubscription = this.categoryRestControllerService.getAllCategoriesOfUser(this.selectedUser.id!).subscribe({
         next: (data) => this.categories = data,
         error:(err) =>  console.log(err)
       });
@@ -70,36 +67,31 @@ export class ManageCardsComponent implements OnInit, OnDestroy{
 
   updateCards():void{
     if (this.selectedCategory != undefined)  {
-      this.cardsSubscription = this.cardRestControllerService.getCardsByCategory(this.selectedCategory).subscribe({
+      this.cardsSubscription = this.cardRestControllerService.getCardsByCategory(this.selectedCategory.id!).subscribe({
         next: (data) => this.cards = data,
         error:(err) =>  console.log(err)
       });
     }
   }
 
-  onClickCard(card: Card){
+  onClickCard(card: CardDto){
 
   }
 
   onLoad() {
-    let card1 : Card = {
+    let card1 : CardDto = {
       id: 1,
       question: "1+2",
       answer: "3",
-      category: this.selectedCategory
+      categoryId: this.selectedCategory.id
     };
-    let card2 : Card = {
+    let card2 : CardDto = {
       id: 2,
       question: "frage",
       answer: "antwort",
-      category: this.selectedCategory
+      categoryId: this.selectedCategory.id
     };
-    let cardsTemp:Card[] = [card1,card2];
-
-    let cards: CardsDto = {
-      id: 1,
-      cards: cardsTemp
-    }
+    this.cards = [card1,card2];
 
   }
 }

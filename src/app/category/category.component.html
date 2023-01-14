@@ -7,7 +7,7 @@
 
 <section class="container legend">
   <h2 class="mt-4">select user</h2>
-  <div class="row " *ngFor="let user of userList.users; let i = index">
+  <div class="row " *ngFor="let user of userList; let i = index">
     <div class="col-sm-9 py-1 my-1 clickable"(click)=onClickUser(user) >
       <span> {{user.firstName}} {{user.userName}} / {{user.mailAddress}}</span>
     </div>
@@ -16,7 +16,7 @@
 
 <section class="container legend">
   <h2 class="mt-4">select category</h2>
-  <div class="row " *ngFor="let category of categories.categories; let i = index">
+  <div class="row " *ngFor="let category of categories; let i = index">
     <div class="col-sm-9 py-1 my-1 clickable"(click)=onClickCategory(category) >
       <span> {{category.categoryName}}</span>
     </div>

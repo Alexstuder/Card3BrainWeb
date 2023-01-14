@@ -1,6 +1,6 @@
 <section class="container legend">
   <h1 class="mt-4">Select a user</h1>
-  <ul class="list-group" *ngFor="let user of userList.users; let i = index">
+  <ul class="list-group" *ngFor="let user of userList; let i = index">
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <div class="onTheLeft">
         <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio{{i}}" (click)=onClickUser(user,i)>

@@ -25,6 +25,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Create API with Openapi 
 
 Run `npm run generate:api` to execute OpenAPI Tool to create the interface to the backend based on the file api-docs.yaml.
+If openapi-generator-cli is not installe, run `npm i -D @openapitools/openapi-generator-cli`
 
 ## Further help
 

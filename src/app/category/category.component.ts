@@ -1,12 +1,9 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {
-  Category,
   UserRestControllerService,
-  User,
-  UsersDto,
   UserDto,
   CategoryRestControllerService,
-  CategoriesDto
+  CategoryDto
 } from "../openapi-gen";
 import {Subscription} from "rxjs";
 
@@ -18,9 +15,9 @@ import {Subscription} from "rxjs";
 export class CategoryComponent implements OnInit, OnDestroy{
   @ViewChild('categoryNameTextField', {static: true}) categoryNameTextField: ElementRef | undefined;
 
-  userList: UsersDto = {};
+  userList: Array<UserDto> | undefined;
   selectedUser: UserDto ={};
-  categories: CategoriesDto = {};
+  categories: Array<CategoryDto> | undefined;
 
   private userSubscription: Subscription | undefined;
   private categorySubscription: Subscription | undefined;
@@ -49,7 +46,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
   }
   updateCategories():void{
     if (this.selectedUser != undefined)  {
-      this.categorySubscription = this.categoryRestControllerService.getAllCategoriesOfUser(this.selectedUser).subscribe({
+      this.categorySubscription = this.categoryRestControllerService.getAllCategoriesOfUser(this.selectedUser.id!).subscribe({
         next: (data) => this.userList = data,
         error:(err) =>  console.log(err)
       });
@@ -64,15 +61,10 @@ export class CategoryComponent implements OnInit, OnDestroy{
     if (this.categoryNameTextField !== undefined){
       let categoryNameTemp: string = this.categoryNameTextField.nativeElement.value;
       if(this.selectedUser !==undefined){
-        let user: User ={
-          id: this.selectedUser.id,
-          userName: this.selectedUser.userName,
-          firstName: this.selectedUser.firstName,
-          mailAddress: this.selectedUser.mailAddress
-        }
-        let category: Category = {
+        let category: CategoryDto = {
+          id : 0,
           categoryName: categoryNameTemp,
-          owner: user
+          owner: this.selectedUser.id
         }
         this.categoryRestControllerService.createCategory(category).subscribe(
           data =>{

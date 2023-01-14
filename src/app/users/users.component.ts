@@ -1,8 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from "rxjs";
-import {UserService} from "../services/user.service";
-import {UserRestControllerService, UsersDto} from "../openapi-gen"
-import {UserDto} from "../openapi-gen"
+import {UserRestControllerService, UserDto} from "../openapi-gen"
 import {ToastService} from "../services/toast.service";
 import {HttpErrorResponse} from "@angular/common/http";
 
@@ -17,11 +15,10 @@ export class UsersComponent implements OnInit, OnDestroy{
   @ViewChild('userNameTextField', {static: true}) userNameTextField: ElementRef | undefined;
   @ViewChild('mailAdressTextField', {static: true}) mailAdressTextField: ElementRef | undefined;
 
-  userList: UsersDto = {};
+  userList: Array<UserDto> | undefined;
   private subscription: Subscription | undefined;
 
   constructor(private readonly userRestControllerService: UserRestControllerService,
-              private readonly userService: UserService,
               private readonly toastService: ToastService) {}
 
   ngOnInit(): void {
@@ -47,7 +44,7 @@ export class UsersComponent implements OnInit, OnDestroy{
 
   onDelete(user: UserDto) {
     if (user !== undefined) {
-      this.userRestControllerService.deleteUser(user).subscribe(
+      this.userRestControllerService.deleteUser(user.id!).subscribe(
         data => {
           this.refreshList();
         },err =>{
