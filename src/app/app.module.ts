@@ -12,6 +12,9 @@ import { PlayCardsComponent } from './play-cards/play-cards.component';
 import {ToastComponent} from "./components/toast/toast.component";
 import {ToasterComponent} from "./components/toaster/toaster.component";
 import { OverviewComponent } from './overview/overview.component';
+import { SignupComponent } from './signup/signup.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +25,17 @@ import { OverviewComponent } from './overview/overview.component';
     PlayCardsComponent,
     ToastComponent,
     ToasterComponent,
-    OverviewComponent
+    OverviewComponent,
+    SignupComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ApiModule
+    ApiModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

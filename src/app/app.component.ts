@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastService } from './services/toast.service';
+import {UserLoginService} from "./services/user-login.service";
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,16 @@ import { ToastService } from './services/toast.service';
 export class AppComponent {
   title = 'card2brainweb';
 
-  constructor(private toastService: ToastService) {}
+  constructor(private readonly toastService: ToastService,
+              readonly  userLoginService: UserLoginService) {
+  }
 
   showToast() {
     this.toastService.showErrorToast('Error toast title', 'This is an error toast message.');
+  }
+
+  myEvent!: string;
+  onMyEvent($event: string) {
+    this.myEvent = $event;
   }
 }

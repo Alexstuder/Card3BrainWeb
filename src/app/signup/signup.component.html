@@ -1,0 +1,101 @@
+<h4 class="component-title">Signup</h4>
+<div class="row">
+  <form novalidate
+        (ngSubmit)="onSubmit()"
+        #f="ngForm">
+    <fieldset ngModelGroup="name">
+      <div class="row form-group mt-3">
+        <div class="col-sm-3">
+          <label for="firstName" class="fs-6 col-form-label text-black-50">First Name</label>
+        </div>
+        <div class="col-sm-6">
+          <input type="text"
+                 id="firstName"
+                 autocomplete="on"
+                 class="form-control"
+                 name="firstName"
+                 [(ngModel)]="model.firstName"
+                 required
+                 #firstName="ngModel">
+          <div class="form-control-feedback text-danger "
+               *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
+            <p *ngIf="firstName.errors?.['required']"><small>First name is
+              required</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group mt-2">
+        <div class="col-sm-3">
+          <label for="lastName" class="fs-6 col-form-label text-black-50">Last Name</label>
+        </div>
+        <div class="col-sm-6">
+          <input type="text"
+                 id="lastName"
+                 autocomplete="on"
+                 class="form-control"
+                 name="lastName"
+                 [(ngModel)]="model.lastName"
+                 required
+                 #lastName="ngModel">
+          <div class="form-control-feedback text-danger"
+               *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
+            <p *ngIf="lastName.errors?.['required']"><small>Last name is required</small></p>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <div class="row form-group mt-2">
+      <div class="col-sm-3">
+        <label for="email" class="fs-6 col-form-label text-black-50">Email</label>
+      </div>
+      <div class="col-sm-6">
+        <input type="email"
+               id="email"
+               autocomplete="on"
+               class="form-control"
+               name="email"
+               [(ngModel)]="model.email"
+               required
+               pattern="[^ @]*@[^ @]*"
+               #email="ngModel">
+        <div class="form-control-feedback text-danger"
+             *ngIf="email.errors && (email.dirty || email.touched)">
+          <p *ngIf="email.errors?.['required']"><small>Email is required</small></p>
+          <p *ngIf="email.errors?.['pattern']"><small>Email must contain at least the @
+            character</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group mt-2">
+      <div class="col-sm-3">
+        <label for="password" class="fs-6 col-form-label text-black-50">Password</label>
+      </div>
+      <div class="col-sm-6">
+        <input type="password"
+               id="password"
+               autocomplete="on"
+               class="form-control"
+               name="password"
+               [(ngModel)]="model.password"
+               required
+               minlength="8"
+               #password="ngModel">
+        <div class="form-control-feedback text-danger"
+             *ngIf="password.errors && (password.dirty || password.touched)">
+          <p *ngIf="password.errors?.['required']"><small>Password is required</small></p>
+          <p *ngIf="password.errors?.['minlength']"><small>Password must be at least 8
+            characters long</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group mt-4">
+      <div class="col-sm-3"><label></label></div>
+      <div class="col-sm-6">
+        <button type="submit"
+                class="btn btn-primary float-end"
+                [disabled]="f.invalid">Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
