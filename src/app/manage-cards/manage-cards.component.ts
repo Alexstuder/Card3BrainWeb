@@ -8,6 +8,7 @@ import {
   CategoryDto, CardDto,
 } from "../openapi-gen";
 import {ToastService} from "../services/toast.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-manage-cards',
@@ -19,61 +20,42 @@ export class ManageCardsComponent implements OnInit, OnDestroy{
   @ViewChild('questionTextField', {static: true}) questionTextField: ElementRef | undefined;
   @ViewChild('answerTextField', {static: true}) answerTextField: ElementRef | undefined;
 
-  userList: Array<UserDto> | undefined;
-  selectedUser: UserDto ={};
-  categories: Array<CategoryDto> | undefined;
   selectedCategory: CategoryDto ={};
   cards: Array<CardDto> | undefined;
   selectedCard: CardDto | undefined;
 
-  private userSubscription: Subscription | undefined;
-  private categorySubscription: Subscription | undefined;
-  private cardsSubscription: Subscription | undefined;
+  categoryId : number | undefined
+  private userId : number | undefined
 
-  constructor(private readonly userRestControllerService:UserRestControllerService,
-              private readonly categoryRestControllerService:CategoryRestControllerService,
+  constructor( private readonly categoryRestControllerService:CategoryRestControllerService,
               private readonly cardRestControllerService :CardRestControllerService,
-              private readonly toastService: ToastService) {}
+              private readonly toastService: ToastService,
+              private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.updateUsers();
+    this.route.queryParams.subscribe(params => {
+      this.categoryId = params['categoryid'];
+      this.userId = params['userid'];
+    })
+    this.updateCards();
   }
-  ngOnDestroy(): void {
-    if (this.userSubscription != undefined)  {
-      this.userSubscription.unsubscribe();
-    }
-  }
+  ngOnDestroy(): void {}
 
-  updateUsers(): void {
-    this.userSubscription = this.userRestControllerService.getAllUsers().subscribe({
-      next: (data) => this.userList = data,
-      error:(err) =>  console.log(err)
-    });
-  }
-
-  onClickUser(user: UserDto) {
-    this.selectedUser = user;
-    this.updateCategories();
-  }
-
+/*
   updateCategories():void{
-    if (this.selectedUser != undefined)  {
-      this.categorySubscription = this.categoryRestControllerService.getAllCategoriesOfUser(this.selectedUser.id!).subscribe({
+    if (this.userId != undefined)  {
+      this.categoryRestControllerService.getAllCategoriesOfUser(this.userId).subscribe({
         next: (data) => this.categories = data,
         error:(err) =>  console.log(err)
       });
     }
-  }
+  } */
 
-  onClickCategory(category: CategoryDto) {
-    this.selectedCategory = category;
-    this.updateCards();
-  }
 
   updateCards():void{
-    if (this.selectedCategory != undefined)  {
+    if (this.categoryId != undefined)  {
       //this.cardsSubscription = this.cardRestControllerService.getCardsByCategory(this.selectedCategory.id!).subscribe({
-      this.cardsSubscription = this.cardRestControllerService.getCardsByCategory(162).subscribe({
+      this.cardRestControllerService.getCardsByCategory(this.categoryId).subscribe({
         next: (data) => this.cards = data,
         error:(err) =>  console.log(err)
       });
@@ -89,10 +71,6 @@ export class ManageCardsComponent implements OnInit, OnDestroy{
     }
   }
 
-  onLoad() {
-    window.location.href="play";
-  }
-
   onNewCard() {
     if (this.questionTextField !== undefined &&
       this.answerTextField !== undefined) {
@@ -102,7 +80,7 @@ export class ManageCardsComponent implements OnInit, OnDestroy{
         categoryId: 162 //ToDo this.selectedCategory.id
       }
       let newCard:CardDto
-      this.cardsSubscription = this.cardRestControllerService.addCard(card).subscribe(
+      this.cardRestControllerService.addCard(card).subscribe(
         data=>{
             this.updateCards();
           },err =>{
@@ -124,7 +102,7 @@ export class ManageCardsComponent implements OnInit, OnDestroy{
         categoryId: 162 //ToDo this.selectedCategory.id
       }
       let newCard:CardDto
-      this.cardsSubscription = this.cardRestControllerService.updateCard(card).subscribe(
+      this.cardRestControllerService.updateCard(card).subscribe(
         data=>{
           this.updateCards();
         },err =>{

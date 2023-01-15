@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {UserDto} from "../openapi-gen";
+import {CategoryDto, UserDto} from "../openapi-gen";
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,7 @@ export class UserLoginService {
   infoString : String = "1"
 
   private user : UserDto | undefined
+  private category : CategoryDto | undefined
 
   constructor() { }
 
@@ -20,5 +21,12 @@ export class UserLoginService {
 
   getUserId(){
     return this.user?.id
+  }
+
+  setCategory(category:CategoryDto){
+    this.category = category
+    if(this.category !== undefined && this.category !== null){
+      this.infoString = this.user + "/" + this.category
+    }
   }
 }

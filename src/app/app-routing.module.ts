@@ -22,7 +22,7 @@ const routes: Routes = [
     component: UsersComponent
   },
   {
-    path: 'cards',
+    path: 'managecards',
     component: ManageCardsComponent
   },
   {

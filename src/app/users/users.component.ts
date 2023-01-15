@@ -123,5 +123,9 @@ export class UsersComponent implements OnInit, OnDestroy{
       this.mailAdressTextField.nativeElement.value = this.selectedUser.mailAddress;
     }
   }
+
+  onEdit(i: number) {
+
+  }
 }
 

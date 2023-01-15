@@ -1,27 +1,8 @@
 <section class="container legend">
-  <h2 class="mt-4">select user</h2>
-  <div class="row " *ngFor="let user of userList; let i = index">
-    <div class="col-sm-9 py-1 my-1 clickable"(click)=onClickUser(user) >
-      <span> {{user.firstName}} {{user.userName}} / {{user.mailAddress}}</span>
+  <h2 class="mt-4">category</h2>
+    <div class="col-sm-9 py-1 my-1 clickable">
+      <span> {{categoryId}} Mathematik</span>
     </div>
-  </div>
-</section>
-
-<section class="container legend">
-  <h2 class="mt-4">select category</h2>
-  <div class="row " *ngFor="let category of categories; let i = index">
-    <div class="col-sm-9 py-1 my-1 clickable"(click)=onClickCategory(category) >
-      <span> {{category.categoryName}}</span>
-    </div>
-  </div>
-</section>
-<button class="btn btn-primary btn-sm" (click)="onLoad()">Learn Selected Category</button>
-
-<section class="container legend">
-  <h2 class="mt-4">selected category</h2>
-  <div class="col-sm-9 py-1 my-1 clickable">
-    <span> {{selectedCategory.categoryName}}</span>
-  </div>
 </section>
 
 <section class="container legend">
@@ -35,7 +16,7 @@
 
 
 <section class="container legend" style="width: 250pt;padding-top: 20pt">
-  <h3 class="mt-4">new User</h3>
+  <h3 class="mt-4">update Cards</h3>
   <div class="container" style="padding-left: 0;">
     <div class="row">
       <input type="text" id="questionTextField"  #questionTextField class="form-control"

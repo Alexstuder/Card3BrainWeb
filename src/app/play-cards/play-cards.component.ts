@@ -7,6 +7,7 @@ import {
 } from "../openapi-gen";
 import {Subscription} from "rxjs";
 import {ToastService} from "../services/toast.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-play-cards',
@@ -18,54 +19,47 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
   cardBody: String = "";
   buttonText: String = "";
 
-  cardsToPlay:Array<CardDto> | undefined;
+  private cardsToPlay:Array<CardDto> | undefined;
   actualCardNumber:number = 0;
   actualQuestion:Boolean = false;
+
+  private categoryId : number |undefined
+  private finished : boolean = true
 
   private cardsSubscription: Subscription | undefined;
   private learnSubscription: Subscription | undefined;
 
   constructor(private readonly cardRestControllerService :CardRestControllerService,
               private readonly toastService: ToastService,
-              private readonly learnRestControllerService: LearnRestControllerService) {}
+              private readonly learnRestControllerService: LearnRestControllerService,
+              private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    /*
-    let user: UserDto = {
-      id:99,
-      userName:"Hampi",
-      firstName:"Müller",
-      mailAddress: "Hampi@test.ch"
-    }
-    let category:CategoryDto ={
-      id :44,
-      owner:user.id,
-      categoryName:"Mathe"
-    }
-    let card1 : CardDto = {
-      id: 1,
-      question: "1+2",
-      answer: "3",
-      categoryId: category.id
-    };
-    let card2 : CardDto = {
-      id: 2,
-      question: "frage",
-      answer: "antwort",
-      categoryId: category.id
-    };
-    this.cardsToPlay = [card1,card2]; */
+    this.route.queryParams.subscribe(params => {
+      this.categoryId = params['categoryid'];
+    })
+    if(this.categoryId !== undefined) {
+      this.cardsSubscription = this.cardRestControllerService.getCardsByCategory(this.categoryId).subscribe(
+        data => {
+          this.cardsToPlay = data;
+          this.actualCardNumber = 0;
+          this.finished = true
+          if(this.cardsToPlay != undefined ){
+            if(this.cardsToPlay.length >= 0) {
+              this.finished = false
+            }
+          }
+          if(this.finished){
+            this.setToTheEnd()
+          }
+          this.showQuestion(true);
+        }, err => {
+          if (!this.toastService.showHttpErrorToast(err))
+            this.toastService.showErrorToast('error', 'get all user gone wrong',);
+          console.log(err);
+        })
 
-    this.cardsSubscription = this.cardRestControllerService.getCardsByCategory(162).subscribe(
-      data => {
-        this.cardsToPlay = data;
-        this.actualCardNumber = 0;
-        this.showQuestion(true);
-      },err =>{
-        if( !this.toastService.showHttpErrorToast(err))
-          this.toastService.showErrorToast('error','get all user gone wrong',);
-        console.log(err);
-      })
+    }
 
 
     this.actualCardNumber = 0;
@@ -80,9 +74,14 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
   }
 
   onClickCard() {
+    if(this.finished ==true){
+      window.location.href="category?userid=69"; //Todo return right userid
+      return
+    }
     this.showQuestion(!this.actualQuestion);
   }
   showQuestion(showAnswer: boolean) {
+
     if (this.cardsToPlay !== undefined) {
       if (this.actualCardNumber < this.cardsToPlay!.length ?? 0) {
         this.actualQuestion = showAnswer;
@@ -141,5 +140,10 @@ err =>{
     this.cardBody = "All Questions done, go back to manage Category and select a new one"
     this.buttonText = "manage Category";
     this.actualQuestion = true;
+  }
+
+  end() {
+    this.finished = true
+    this.setToTheEnd()
   }
 }

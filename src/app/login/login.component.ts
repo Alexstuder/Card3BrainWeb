@@ -54,6 +54,6 @@ export class LoginComponent implements OnInit {
   }
 
   private afterLoggedIn(){
-    window.location.href="category";
+    window.location.href="category?userid=69"; //Todo return right userid
   }
 }
