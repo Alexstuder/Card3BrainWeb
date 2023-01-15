@@ -47,7 +47,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
   updateCategories():void{
     if (this.selectedUser != undefined)  {
       this.categorySubscription = this.categoryRestControllerService.getAllCategoriesOfUser(this.selectedUser.id!).subscribe({
-        next: (data) => this.userList = data,
+        next: (data) => this.categories = data,
         error:(err) =>  console.log(err)
       });
     }

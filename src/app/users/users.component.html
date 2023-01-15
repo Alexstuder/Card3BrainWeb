@@ -1,7 +1,7 @@
 <section class="container legend">
   <h2 class="mt-4">User List</h2>
   <div class="row " *ngFor="let user of userList; let i = index">
-    <div class="col-sm-9 py-1 my-1">
+    <div class="col-sm-9 py-1 my-1" (click)=onClickUser(user)>
       <span> {{user.firstName}} {{user.userName}} / {{user.mailAddress}}</span>
       <span (click)=onDelete(user) class="cmd-buttons"><i class="fa fa-trash"></i></span>
       <!-- <span (click)=onEdit(i) class="cmd-buttons"><i class="fa fa-edit"></i></span> -->
@@ -24,7 +24,7 @@
         <input type="text" id="mailAdressTextField"  #mailAdressTextField class="form-control"
                placeholder="mail address">
     </div>
-    <button class="btn btn-primary btn-sm" (click)="onCreateUser()">Create User</button>
+    <button class="btn btn-primary btn-sm" (click)="onCreateUser()">Create User</button> <button class="btn btn-primary btn-sm" (click)="onUpdateUser()">Update User</button>
   </div>
 </section>
 

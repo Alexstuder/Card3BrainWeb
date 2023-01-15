@@ -15,6 +15,14 @@
     </div>
   </div>
 </section>
+<button class="btn btn-primary btn-sm" (click)="onLoad()">Learn Selected Category</button>
+
+<section class="container legend">
+  <h2 class="mt-4">selected category</h2>
+  <div class="col-sm-9 py-1 my-1 clickable">
+    <span> {{selectedCategory.categoryName}}</span>
+  </div>
+</section>
 
 <section class="container legend">
   <h2 class="mt-4">select cards</h2>
@@ -25,4 +33,22 @@
   </div>
 </section>
 
-<button class="btn btn-primary btn-sm" (click)="onLoad()">Learn Selected Category</button>
+
+<section class="container legend" style="width: 250pt;padding-top: 20pt">
+  <h3 class="mt-4">new User</h3>
+  <div class="container" style="padding-left: 0;">
+    <div class="row">
+      <input type="text" id="questionTextField"  #questionTextField class="form-control"
+             placeholder="question">
+    </div>
+    <div class="row">
+      <input type="text" id="answerTextField"  #answerTextField class="form-control"
+             placeholder="answer">
+    </div>
+    <button class="btn btn-primary btn-sm" (click)="onNewCard()">New Card</button>
+    <button class="btn btn-primary btn-sm" (click)="onUpdateCard()">Update Card</button>
+  </div>
+</section>
+
+
+

@@ -17,6 +17,7 @@ export class UsersComponent implements OnInit, OnDestroy{
 
   userList: Array<UserDto> | undefined;
   private subscription: Subscription | undefined;
+  selectedUser: UserDto ={};
 
   constructor(private readonly userRestControllerService: UserRestControllerService,
               private readonly toastService: ToastService) {}
@@ -83,6 +84,44 @@ export class UsersComponent implements OnInit, OnDestroy{
 
   refreshList() {
     this.useOpenApiService();
+  }
+
+  onUpdateUser() {
+    if (this.firstNameTextField !== undefined &&
+      this.userNameTextField !== undefined&&
+      this.mailAdressTextField !== undefined) {
+      let firstNameTemp: string = this.firstNameTextField.nativeElement.value;
+      let userNameTemp: string = this.userNameTextField.nativeElement.value;
+      let mailAdressTemp: string = this.mailAdressTextField.nativeElement.value;
+      let user: UserDto = {
+        id : this.selectedUser.id,
+        userName: userNameTemp,
+        firstName: firstNameTemp,
+        mailAddress: mailAdressTemp
+      }
+      this.userRestControllerService.updateUser(user).subscribe(
+        data =>{
+          this.refreshList();
+        },err =>{
+          if( !this.toastService.showHttpErrorToast(err))
+            this.toastService.showErrorToast('error','update user gone wrong',);
+          console.log(err);
+        })
+      this.firstNameTextField.nativeElement.value = "";
+      this.userNameTextField.nativeElement.value = "";
+      this.mailAdressTextField.nativeElement.value = "";
+    }
+  }
+
+  onClickUser(user: UserDto) {
+    this.selectedUser = user;
+    if (this.firstNameTextField !== undefined &&
+      this.userNameTextField !== undefined&&
+      this.mailAdressTextField !== undefined) {
+      this.firstNameTextField.nativeElement.value = this.selectedUser.firstName;
+      this.userNameTextField.nativeElement.value = this.selectedUser.userName;
+      this.mailAdressTextField.nativeElement.value = this.selectedUser.mailAddress;
+    }
   }
 }
 
