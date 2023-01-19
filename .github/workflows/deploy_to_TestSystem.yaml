@@ -1,8 +1,9 @@
-name: Deploy to Production
+name: Deploy to SystemTest
 
 on:
   push:
-    branches: release
+    branches-ignore:
+      - '!release'
   workflow_dispatch:
 
 jobs:
@@ -24,6 +25,6 @@ jobs:
         run: ssh-keyscan -H $REMOTE_HOST >> ~/.ssh/known_hosts
       - name: Deploy docker-compose.yml with rsync
         run: rsync -avz docker-compose.yml ${{ secrets.DEPLOY_USER }}@$REMOTE_HOST:/home/card2brain
-      - name: Execute compose pull and cocker-compose up -d to start the container
+      - name: Execute compose pull and docker-compose up -d to start the container
         run: ssh card2brain@$REMOTE_HOST  "docker-compose pull ; docker-compose up -d"
 
