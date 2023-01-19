@@ -12,8 +12,6 @@
                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
               <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                 <div *ngIf="f.email.errors?.['required']">Email is required</div>
-                <div *ngIf="f.email.errors?.['email']">Email must be a valid email
-                  address</div>
               </div>
               <label for="floatingInput">Email address</label>
             </div>
@@ -25,13 +23,6 @@
                 <div *ngIf="f.password.errors?.['required']">Password is required</div>
               </div>
               <label for="floatingPassword">Password</label>
-            </div>
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" value=""
-                     id="rememberPasswordCheck">
-              <label class="form-check-label" for="rememberPasswordCheck">
-                Remember password
-              </label>
             </div>
             <div class="d-grid">
               <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2"

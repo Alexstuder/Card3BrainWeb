@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UserDto, UserRestControllerService} from "../openapi-gen";
+import {LoginDto, UserDto, UserRestControllerService} from "../openapi-gen";
 import {ToastService} from "../services/toast.service";
 import {UserLoginService} from "../services/user-login.service";
 @Component({
@@ -11,8 +11,9 @@ import {UserLoginService} from "../services/user-login.service";
 export class LoginComponent implements OnInit {
 
   loginForm:any = FormGroup;
-
   submitted = false;
+  private user : UserDto | undefined
+
   constructor( private formBuilder: FormBuilder,
                private readonly userRestControllerService: UserRestControllerService,
                private readonly toastService: ToastService,
@@ -25,24 +26,26 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-
     // ToDo Send Login and get real user
-    this.loginForm.email
-    this.loginForm.password
-    // ToDo get real user
-    let user: UserDto = {
-      id:69,
-      userName: "User2",
-      firstName: "FirstName1",
-      mailAddress: "Mail@Adress.1"
+    let loginUser: LoginDto = {
+      mailAddress: this.loginForm.controls.email.value,
+      password: this.loginForm.controls.password.value
     }
+    this.userRestControllerService.login(loginUser).subscribe(
+      data =>{
+        this.userLoginService.setUser(data)
+        this.user = data
+        this.afterLoggedIn()
+      },err =>{
+        if( !this.toastService.showHttpErrorToast(err))
+          this.toastService.showErrorToast('error','login gone wrong',);
+        console.log(err);
+      })
 
-    this.userLoginService.setUser(user)
-    this.afterLoggedIn()
   }
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
 
@@ -54,6 +57,6 @@ export class LoginComponent implements OnInit {
   }
 
   private afterLoggedIn(){
-    window.location.href="category?userid=69"; //Todo return right userid
+    window.location.href="category?userid="+this.user?.id; //Todo return right userid
   }
 }

@@ -7,6 +7,7 @@ import {
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {UserLoginService} from "../services/user-login.service";
+import {ToastService} from "../services/toast.service";
 
 @Component({
   selector: 'app-category',
@@ -14,11 +15,9 @@ import {UserLoginService} from "../services/user-login.service";
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit, OnDestroy{
-  @ViewChild('categoryNameTextField', {static: true}) categoryNameTextField: ElementRef | undefined;
 
   categories: Array<CategoryDto> | undefined;
 
-  private routeSubscription: Subscription | undefined;
   private categorySubscription: Subscription | undefined;
   private userId: number = 0
 
@@ -26,6 +25,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
 
   constructor(private readonly categoryRestControllerService:CategoryRestControllerService,
               private userLoginService: UserLoginService,
+              private readonly toastService: ToastService,
               private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -36,9 +36,6 @@ export class CategoryComponent implements OnInit, OnDestroy{
 
   }
   ngOnDestroy(): void {
-    if (this.routeSubscription != undefined) {
-      this.routeSubscription.unsubscribe();
-    }
     if (this.categorySubscription != undefined) {
       this.categorySubscription.unsubscribe();
     }
@@ -46,10 +43,14 @@ export class CategoryComponent implements OnInit, OnDestroy{
 
   updateCategories():void{
     if (this.userId != undefined || this.userId != null)  {
-      this.categorySubscription = this.categoryRestControllerService.getAllCategoriesOfUser(this.userId).subscribe({
-        next: (data) => this.categories = data,
-        error:(err) =>  console.log(err)
-      });
+      this.categorySubscription = this.categoryRestControllerService.getAllCategoriesOfUser(this.userId).subscribe(
+        data => {
+          this.categories = data
+        },err =>{
+          if( !this.toastService.showHttpErrorToast(err))
+            this.toastService.showErrorToast('error','update category gone wrong',);
+          console.log(err);
+        })
     }
   }
 
@@ -59,22 +60,19 @@ export class CategoryComponent implements OnInit, OnDestroy{
   }
 
   onCreateCategory() {
-    if (this.categoryNameTextField !== undefined){
-      let categoryNameTemp: string = this.categoryNameTextField.nativeElement.value;
-      if (this.userId != undefined || this.userId != null)  {
-        let category: CategoryDto = {
-          id : 0,
-          categoryName: categoryNameTemp,
-          owner: this.userId
-        }
-        this.categoryRestControllerService.createCategory(category).subscribe(
-          data =>{
-            this.updateCategories();
-          },
-          err => console.log(err));
-        this.categoryNameTextField.nativeElement.value="";
-      }
+    let category: CategoryDto = {
+      categoryName: "NewCategory",
+      owner: this.userId
     }
+    this.categoryRestControllerService.createCategory(category).subscribe(
+    data =>{
+      this.userLoginService.setCategory(data)
+      window.location.href="managecards?categoryid=162&userid=69" //Todo return right category data.id
+    },err =>{
+      if( !this.toastService.showHttpErrorToast(err))
+        this.toastService.showErrorToast('error','create category gone wrong',);
+      console.log(err);
+    })
   }
 
   onEdit(i: number) {
