@@ -1,4 +1,4 @@
-name: Build Image & Push to DockerHub!
+name: Production Build Image & Push to DockerHub!
 
 on:
   push:
