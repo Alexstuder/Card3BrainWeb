@@ -114,4 +114,24 @@ export class ManageCardsComponent implements OnInit, OnDestroy{
     }
   }
 
+  onClickSubmit() {
+    if (this.categoryNameTextField !== undefined){
+      let categoryNameTemp: string = this.categoryNameTextField.nativeElement.value;
+      if (this.userId != undefined || this.userId != null)  {
+        let category: CategoryDto = {
+          id : 0,
+          categoryName: categoryNameTemp,
+          owner: this.userId
+        }
+        this.categoryRestControllerService.createCategory(category).subscribe(
+          data =>{
+            this.selectedCategory = data;
+            // @ts-ignore
+            this.categoryNameTextField.nativeElement.value = this.selectedCategory.categoryName
+          },
+          err => console.log(err));
+        this.categoryNameTextField.nativeElement.value="";
+      }
+    }
+  }
 }

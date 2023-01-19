@@ -1,23 +1,35 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {CategoryDto, UserDto} from "../openapi-gen";
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserLoginService {
-  infoString : String = "1"
 
   private user : UserDto | undefined
   private category : CategoryDto | undefined
+  private infoString = new BehaviorSubject('log in first');
+  currentInfoStringMessage = this.infoString.asObservable();
 
-  constructor() { }
+  constructor() {}
+
+
+  private updateInfoString(){
+    let info = ""
+    if(this.user){
+      info = info + this.user.mailAddress?? ""
+    }
+    if (this.category){
+      info = info + " / " + this.category.categoryName ?? ""
+    }
+    this.infoString.next(info)
+  }
 
   setUser(user: UserDto){
     this.user = user
-    if(this.user !== undefined && this.user !== null){
-      this.infoString = this.user.userName + " " + this.user.firstName
-    }
+    this.updateInfoString()
   }
 
   getUserId(){
@@ -26,8 +38,6 @@ export class UserLoginService {
 
   setCategory(category:CategoryDto){
     this.category = category
-    if(this.category !== undefined && this.category !== null){
-      this.infoString = this.user + "/" + this.category
-    }
+    this.updateInfoString()
   }
 }

@@ -1,11 +1,11 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, ModuleWithProviders, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {
   UserDto,
   CategoryRestControllerService,
-  CategoryDto
+  CategoryDto, ApiModule
 } from "../openapi-gen";
 import {Subscription} from "rxjs";
-import {ActivatedRoute,ParamMap} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {UserLoginService} from "../services/user-login.service";
 
 @Component({
@@ -22,8 +22,10 @@ export class CategoryComponent implements OnInit, OnDestroy{
   private categorySubscription: Subscription | undefined;
   private userId: number = 0
 
+  hidden:boolean = true
+
   constructor(private readonly categoryRestControllerService:CategoryRestControllerService,
-              private readonly userLoginService: UserLoginService,
+              private userLoginService: UserLoginService,
               private route: ActivatedRoute) {}
 
   ngOnInit(): void {

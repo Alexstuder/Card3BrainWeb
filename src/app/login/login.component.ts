@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor( private formBuilder: FormBuilder,
                private readonly userRestControllerService: UserRestControllerService,
                private readonly toastService: ToastService,
-               private readonly userLoginService: UserLoginService){}
+               private userLoginService: UserLoginService){}
   get f() { return this.loginForm.controls; }
 
   onSubmit() {

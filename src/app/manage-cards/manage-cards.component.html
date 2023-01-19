@@ -1,9 +1,14 @@
-<section class="container legend">
-  <h2 class="mt-4">category</h2>
-    <div class="col-sm-9 py-1 my-1 clickable">
-      <span> {{categoryId}} Mathematik</span>
+<form class="row row-cols-lg-auto g-3 align-items-center">
+  <div class="col-9">
+    <div class="input-group">
+      <input type="text" class="form-control" id="categoryNameTextField" #categoryNameTextField placeholder="Category Name" value="Mathematik">
     </div>
-</section>
+  </div>
+
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary" (click)=onClickSubmit()>submit</button>
+  </div>
+</form>
 
 <section class="container legend">
   <h2 class="mt-4">select cards</h2>
@@ -30,6 +35,3 @@
     <button class="btn btn-primary btn-sm" (click)="onUpdateCard()">Update Card</button>
   </div>
 </section>
-
-
-

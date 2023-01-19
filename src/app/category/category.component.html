@@ -1,20 +1,24 @@
 <section class="container legend">
-  <h2 class="mt-4">select category</h2>
-  <div class="row " *ngFor="let category of categories; let i = index">
-    <div class="col-sm-9 py-1 my-1" (click)=onClickCategory(category)>
-      <span> {{category.categoryName}}</span>
-      <span (click)=onEdit(i) class="cmd-buttons"><i class="fa fa-edit"></i></span>
-    </div>
+  <div style="display: flex; justify-content: space-between;">
+    <h1 class="mt-4">chose category</h1>
+    <span (click)=onCreateCategory() class="cmd-buttons">New <i class="fa fa-plus"></i></span>
   </div>
-</section>
-
-<section class="container legend" style="width: 250pt;padding-top: 20pt">
-  <h3 class="mt-4">new category</h3>
-  <div class="container" style="padding-left: 0;">
-    <div class="row">
-      <input type="text" id="categoryNameTextField"  #categoryNameTextField class="form-control"
-             placeholder="category name">
-    </div>
-    <button class="btn btn-primary btn-sm" (click)="onCreateCategory()">Create Category</button>
-  </div>
+  <ul class="list-group" *ngFor="let category of categories; let i = index">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div class="onTheLeft">
+        <!-- <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio{{i}}" (click)=onClickCategory(category)>
+        <label class="form-check-label" for="firstRadio{{i}}">
+          {{category.categoryName}}
+        </label> -->
+        <div class="col-sm-12">
+          <input type="text" readonly class="form-control-plaintext" value={{category.categoryName}} (click)=onClickCategory(category)>
+        </div>
+      </div>
+      <div class="onTheRight">
+        <span class="badge bg-primary rounded-pill">2</span>
+        <span>&nbsp;</span>
+        <span (click)=onEdit(i) class="cmd-buttons"><i class="fa fa-edit"></i></span>
+      </div>
+    </li>
+  </ul>
 </section>
