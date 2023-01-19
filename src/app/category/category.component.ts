@@ -76,6 +76,6 @@ export class CategoryComponent implements OnInit, OnDestroy{
   }
 
   onEdit(i: number) {
-
+    window.location.href="managecards?categoryid=162&userid=69" //Todo return right category
   }
 }
