@@ -1,4 +1,4 @@
-name: Production Build Image & Push to DockerHub!
+name: Deploy to Production
 
 on:
   push:
