@@ -27,6 +27,15 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 Run `npm run generate:api` to execute OpenAPI Tool to create the interface to the backend based on the file api-docs.yaml.
 If openapi-generator-cli is not installe, run `npm i -D @openapitools/openapi-generator-cli`
 
+## Create an Image for Docker
+docker build  . --tag rojo1/card2brainweb
+
+
+## Push Dockerimage to DockerHub
+docker card2brainweb push rojo1/card2brainweb:latest
+
+
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
