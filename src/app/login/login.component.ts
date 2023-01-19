@@ -26,12 +26,12 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    // ToDo Send Login and get real user
+
     let loginUser: LoginDto = {
       mailAddress: this.loginForm.controls.email.value,
       password: this.loginForm.controls.password.value
     }
-    this.userRestControllerService.login(loginUser).subscribe(
+    this.userRestControllerService.login(loginUser).subscribe(  //ToDo how to have the service static
       data =>{
         this.userLoginService.setUser(data)
         this.user = data

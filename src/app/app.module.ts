@@ -15,6 +15,9 @@ import { OverviewComponent } from './overview/overview.component';
 import { SignupComponent } from './signup/signup.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LoginComponent } from './login/login.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     ApiModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
