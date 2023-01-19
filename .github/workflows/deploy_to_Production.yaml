@@ -2,7 +2,7 @@ name: Build Image & Push to DockerHub!
 
 on:
   push:
-    branches: feat/deploy
+    branches: release
   workflow_dispatch:
 
 jobs:
