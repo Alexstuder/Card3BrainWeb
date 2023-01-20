@@ -19,6 +19,8 @@ export class UsersComponent implements OnInit, OnDestroy{
   private subscription: Subscription | undefined;
   selectedUser: UserDto ={};
 
+  display='none';
+
   constructor(private readonly userRestControllerService: UserRestControllerService,
               private readonly toastService: ToastService) {}
 
@@ -56,36 +58,11 @@ export class UsersComponent implements OnInit, OnDestroy{
     }
   }
 
-  onCreateUser() {
-    if (this.firstNameTextField !== undefined &&
-      this.userNameTextField !== undefined&&
-      this.mailAdressTextField !== undefined) {
-      let firstNameTemp: string = this.firstNameTextField.nativeElement.value;
-      let userNameTemp: string = this.userNameTextField.nativeElement.value;
-      let mailAdressTemp: string = this.mailAdressTextField.nativeElement.value;
-      let user: UserDto = {
-        userName: userNameTemp,
-        firstName: firstNameTemp,
-        mailAddress: mailAdressTemp
-      }
-      this.userRestControllerService.createUser(user).subscribe(
-        data =>{
-          this.refreshList();
-        },err =>{
-          if( !this.toastService.showHttpErrorToast(err))
-            this.toastService.showErrorToast('error','create user gone wrong',);
-          console.log(err);
-        })
-      this.firstNameTextField.nativeElement.value = "";
-      this.userNameTextField.nativeElement.value = "";
-      this.mailAdressTextField.nativeElement.value = "";
-      }
-  }
 
   refreshList() {
     this.useOpenApiService();
   }
-
+/*
   onUpdateUser() {
     if (this.firstNameTextField !== undefined &&
       this.userNameTextField !== undefined&&
@@ -112,7 +89,7 @@ export class UsersComponent implements OnInit, OnDestroy{
       this.mailAdressTextField.nativeElement.value = "";
     }
   }
-
+*/
   onClickUser(user: UserDto) {
     this.selectedUser = user;
     if (this.firstNameTextField !== undefined &&
@@ -124,8 +101,49 @@ export class UsersComponent implements OnInit, OnDestroy{
     }
   }
 
-  onEdit(i: number) {
+  onEdit(user: UserDto) {
+    this.selectedUser = user
+    this.display='block';
+    if (this.firstNameTextField !== undefined) {
+      this.firstNameTextField.nativeElement.value = user.firstName
+    }
+    if (this.userNameTextField !== undefined) {
+      this.userNameTextField.nativeElement.value = user.userName
+    }
+    if (this.mailAdressTextField !== undefined) {
+      this.mailAdressTextField.nativeElement.value = user.mailAddress
+    }
+  }
 
+  onSave() {
+    if (this.firstNameTextField !== undefined &&
+      this.userNameTextField !== undefined&&
+      this.mailAdressTextField !== undefined) {
+      let firstNameTemp: string = this.firstNameTextField.nativeElement.value;
+      let userNameTemp: string = this.userNameTextField.nativeElement.value;
+      let mailAdressTemp: string = this.mailAdressTextField.nativeElement.value;
+      let user: UserDto = {
+        id : this.selectedUser.id,
+        userName: userNameTemp,
+        firstName: firstNameTemp,
+        mailAddress: mailAdressTemp
+      }
+      this.userRestControllerService.updateUser(user).subscribe(
+        data =>{
+          this.refreshList();
+        },err =>{
+          if( !this.toastService.showHttpErrorToast(err))
+            this.toastService.showErrorToast('error','update user gone wrong',);
+          console.log(err);
+        })
+      this.firstNameTextField.nativeElement.value = "";
+      this.userNameTextField.nativeElement.value = "";
+      this.mailAdressTextField.nativeElement.value = "";
+    }
+  }
+
+  onCloseHandled() {
+    this.display='none';
   }
 }
 

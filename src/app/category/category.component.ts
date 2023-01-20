@@ -2,7 +2,7 @@ import {Component, ElementRef, ModuleWithProviders, OnDestroy, OnInit, ViewChild
 import {
   UserDto,
   CategoryRestControllerService,
-  CategoryDto, ApiModule
+  CategoryDto, ApiModule, InfoDto, LearnRestControllerService, UserRestControllerService
 } from "../openapi-gen";
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
@@ -16,14 +16,14 @@ import {ToastService} from "../services/toast.service";
 })
 export class CategoryComponent implements OnInit, OnDestroy{
 
-  categories: Array<CategoryDto> | undefined;
-
-  private categorySubscription: Subscription | undefined;
+  categories: Array<InfoDto> | undefined;
   private userId: number = 0
 
   hidden:boolean = true
 
-  constructor(private readonly categoryRestControllerService:CategoryRestControllerService,
+  constructor(private readonly learnRestControllerService : LearnRestControllerService,
+              private readonly categoryRestControllerService:CategoryRestControllerService,
+              private readonly userRestControllerService: UserRestControllerService,
               private userLoginService: UserLoginService,
               private readonly toastService: ToastService,
               private route: ActivatedRoute) {}
@@ -36,14 +36,11 @@ export class CategoryComponent implements OnInit, OnDestroy{
 
   }
   ngOnDestroy(): void {
-    if (this.categorySubscription != undefined) {
-      this.categorySubscription.unsubscribe();
-    }
   }
 
   updateCategories():void{
     if (this.userId != undefined || this.userId != null)  {
-      this.categorySubscription = this.categoryRestControllerService.getAllCategoriesOfUser(this.userId).subscribe(
+      this.userRestControllerService.getInfosOfUser(this.userId).subscribe(
         data => {
           this.categories = data
         },err =>{
@@ -54,9 +51,9 @@ export class CategoryComponent implements OnInit, OnDestroy{
     }
   }
 
-  onClickCategory(category: CategoryDto) {
+  onClickCategory(category: InfoDto) {
     this.userLoginService.setCategory(category)
-    window.location.href="play?categoryid="+category.id
+    window.location.href="play?categoryid="+category.categoryId
   }
 
   onCreateCategory() {
@@ -75,7 +72,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
     })
   }
 
-  onEdit(category: CategoryDto) {
-    window.location.href="managecards?categoryid="+category.id+"&userid="+this.userId
+  onEdit(category: InfoDto) {
+    window.location.href="managecards?categoryid="+category.categoryId+"&userid="+this.userId
   }
 }

@@ -4,6 +4,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import {CardDto, CardRestControllerService, CategoryDto, CategoryRestControllerService, LoginDto} from "../openapi-gen";
 import { ToastService } from '../services/toast.service';
 import {ActivatedRoute} from "@angular/router";
+import {UserLoginService} from "../services/user-login.service";
 
 @Component({
   selector: 'app-manage-cards',
@@ -31,9 +32,6 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
   display='none';
   selectedCard : CardDto | undefined
 
-  test:string = "Jetzt"
-
-
   @ViewChild('categoryNameTextField', {static: true}) categoryNameTextField: ElementRef | undefined;
   @ViewChild('questionTextField', {static: true}) questionTextField: ElementRef | undefined;
   @ViewChild('answerTextField', {static: true}) answerTextField: ElementRef | undefined;
@@ -43,6 +41,7 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
   constructor(private readonly categoryRestControllerService:CategoryRestControllerService,
               private readonly cardRestControllerService :CardRestControllerService,
               private readonly toastService: ToastService,
+              private userLoginService: UserLoginService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -55,9 +54,29 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
   }
 
   updateCards():void{
+    if (this.userId != undefined) {
+      let tempCategories: Array<CategoryDto> = []
+      this.categoryRestControllerService.getAllCategoriesOfUser(this.userId).subscribe( //Todo get the Category from the Service
+        data => {
+          tempCategories = data
+          for (var i = 0; i < tempCategories.length; i++) {
+            if (tempCategories[i].id == this.categoryId) {
+              this.selectedCategory = tempCategories[i]
+              if (this.categoryNameTextField !== undefined) {
+                this.categoryNameTextField.nativeElement.value = this.selectedCategory.categoryName
+              }
+            }
+          }
+        }, err => {
+          if (!this.toastService.showHttpErrorToast(err))
+            this.toastService.showErrorToast('error', 'get categories gone wrong',);
+          console.log(err);
+        })
+
+    }
+
     if (this.categoryId != undefined)  {
       this.loading = true
-      //this.cardsSubscription = this.cardRestControllerService.getCardsByCategory(this.selectedCategory.id!).subscribe({
       this.cardRestControllerService.getCardsByCategory(this.categoryId).subscribe(
         data =>{
           this.dataSource = new MatTableDataSource(data)
@@ -119,19 +138,30 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
     if (this.categoryNameTextField !== undefined){
       let categoryNameTemp: string = this.categoryNameTextField.nativeElement.value;
       if (this.userId != undefined || this.userId != null)  {
-        let category: CategoryDto = {
-          id : 0,
-          categoryName: categoryNameTemp,
-          owner: this.userId
+        let tempCategories :Array<CategoryDto> = []
+        this.categoryRestControllerService.getAllCategoriesOfUser(this.userId).subscribe( //Todo get the Category from the Service
+          data=>{
+            tempCategories = data
+          },err =>{
+            if( !this.toastService.showHttpErrorToast(err))
+              this.toastService.showErrorToast('error','get categories gone wrong',);
+            console.log(err);
+          })
+        for (var i = 0; i < tempCategories.length; i++) {
+          if(tempCategories[i].id == this.categoryId){
+            this.selectedCategory = tempCategories[i]
+          }
         }
-        this.categoryRestControllerService.createCategory(category).subscribe(
+        this.selectedCategory.categoryName = this.categoryNameTextField.nativeElement.value
+        this.categoryRestControllerService.updateCategory(this.selectedCategory).subscribe(
           data =>{
             this.selectedCategory = data;
             // @ts-ignore
             this.categoryNameTextField.nativeElement.value = this.selectedCategory.categoryName
           },
           err => console.log(err));
-        this.categoryNameTextField.nativeElement.value="";
+        this.categoryNameTextField.nativeElement.value=this.selectedCategory.categoryName;
+        this.userLoginService.setCategory(this.selectedCategory)
       }
     }
   }

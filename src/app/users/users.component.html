@@ -4,27 +4,44 @@
     <div class="col-sm-9 py-1 my-1" (click)=onClickUser(user)>
       <span> {{user.firstName}} {{user.userName}} / {{user.mailAddress}}</span>
       <span (click)=onDelete(user) class="cmd-buttons"><i class="fa fa-trash"></i></span>
-      <span (click)=onEdit(i) class="cmd-buttons"><i class="fa fa-edit"></i></span>
+      <span (click)=onEdit(user) class="cmd-buttons"><i class="fa fa-edit"></i></span>
     </div>
   </div>
 </section>
 
-<section class="container legend" style="width: 250pt;padding-top: 20pt">
-  <h3 class="mt-4">new User</h3>
-  <div class="container" style="padding-left: 0;">
-    <div class="row">
-        <input type="text" id="firstNameTextField"  #firstNameTextField class="form-control"
-               placeholder="first name">
-    </div>
-    <div class="row">
-        <input type="text" id="userNameTextField"  #userNameTextField class="form-control"
-               placeholder="user name">
-    </div>
-    <div class="row">
-        <input type="text" id="mailAdressTextField"  #mailAdressTextField class="form-control"
-               placeholder="mail address">
-    </div>
-    <button class="btn btn-primary btn-sm" (click)="onCreateUser()">Create User</button> <button class="btn btn-primary btn-sm" (click)="onUpdateUser()">Update User</button>
-  </div>
-</section>
-
+<!-- Modal -->
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">EditUser</h2>
+      </div>
+      <div class="modal-body">
+        <form class="row row-cols-lg-auto g-3 align-items-center">
+          <div class="col-12">
+            <div class="input-group mb-2">
+              <label for="firstNameTextField">first name </label>
+              <span>&nbsp;&nbsp;</span>
+              <input type="text" class="form-control" id="firstNameTextField" #firstNameTextField>
+            </div>
+            <div class="input-group">
+              <label for="userNameTextField">user name</label>
+              <span>&nbsp;&nbsp;</span>
+              <input type="text" class="form-control" id="userNameTextField" #userNameTextField>
+            </div>
+            <div class="input-group">
+              <label for="mailAdressTextField">mail address</label>
+              <span>&nbsp;&nbsp;</span>
+              <input type="text" class="form-control" id="mailAdressTextField" #mailAdressTextField>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onSave()" >Save</button>
+        <button type="button" class="btn btn-primary" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal !-->

@@ -4,7 +4,6 @@ import {UsersComponent} from "./users/users.component";
 import {CategoryComponent} from "./category/category.component";
 import {ManageCardsComponent} from "./manage-cards/manage-cards.component";
 import {PlayCardsComponent} from "./play-cards/play-cards.component";
-import {OverviewComponent} from "./overview/overview.component";
 import {SignupComponent} from "./signup/signup.component";
 import {LoginComponent} from "./login/login.component";
 
@@ -28,10 +27,6 @@ const routes: Routes = [
   {
     path: 'play',
     component: PlayCardsComponent
-  },
-  {
-    path: 'overview',
-    component: OverviewComponent
   },
   {
     path: 'signup',

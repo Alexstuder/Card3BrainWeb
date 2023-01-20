@@ -11,7 +11,6 @@ import { ManageCardsComponent } from './manage-cards/manage-cards.component';
 import { PlayCardsComponent } from './play-cards/play-cards.component';
 import {ToastComponent} from "./components/toast/toast.component";
 import {ToasterComponent} from "./components/toaster/toaster.component";
-import { OverviewComponent } from './overview/overview.component';
 import { SignupComponent } from './signup/signup.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LoginComponent } from './login/login.component';
@@ -28,7 +27,6 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     PlayCardsComponent,
     ToastComponent,
     ToasterComponent,
-    OverviewComponent,
     SignupComponent,
     LoginComponent
   ],
