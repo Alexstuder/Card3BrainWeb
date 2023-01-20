@@ -56,7 +56,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
 
   onClickCategory(category: CategoryDto) {
     this.userLoginService.setCategory(category)
-    window.location.href="play?categoryid=162" //Todo return right category
+    window.location.href="play?categoryid="+category.id
   }
 
   onCreateCategory() {
@@ -67,7 +67,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
     this.categoryRestControllerService.createCategory(category).subscribe(
     data =>{
       this.userLoginService.setCategory(data)
-      window.location.href="managecards?categoryid=162&userid=69" //Todo return right category data.id
+      window.location.href="managecards?categoryid="+data.id+"&userid="+this.userId
     },err =>{
       if( !this.toastService.showHttpErrorToast(err))
         this.toastService.showErrorToast('error','create category gone wrong',);
@@ -75,7 +75,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
     })
   }
 
-  onEdit(i: number) {
-    window.location.href="managecards?categoryid=162&userid=69" //Todo return right category
+  onEdit(category: CategoryDto) {
+    window.location.href="managecards?categoryid="+category.id+"&userid="+this.userId
   }
 }
