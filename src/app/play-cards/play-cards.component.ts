@@ -20,7 +20,8 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
   buttonText: String = "";
 
   private cardsToPlay:Array<CardDto> | undefined;
-  actualCardNumber:number = 0;
+  cardArrayLength : number = 0
+  actualCardNumber:number = 0
   actualQuestion:Boolean = false;
 
   private categoryId : number |undefined
@@ -39,9 +40,10 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
       this.categoryId = params['categoryid'];
     })
     if(this.categoryId !== undefined) {
-      this.cardsSubscription = this.cardRestControllerService.getCardsByCategory(this.categoryId).subscribe(
+      this.cardsSubscription = this.learnRestControllerService.cardsToLearn(this.categoryId).subscribe(
         data => {
           this.cardsToPlay = data;
+          this.cardArrayLength = data.length
           this.actualCardNumber = 0;
           this.finished = true
           if(this.cardsToPlay != undefined ){
@@ -143,7 +145,6 @@ err =>{
   }
 
   end() {
-    this.finished = true
-    this.setToTheEnd()
+    window.location.href="category?userid=69"; //Todo return right userid
   }
 }

@@ -1,34 +1,23 @@
-<div class="card text-center">
-  <div class="card-header">
-    <h2>{{cardHeader}}</h2>
-  </div>
-  <div class="card-body">
-    <div class="clickable" id="questionbox" (click)=onClickCard()>
-      <p>{{cardBody}}</p>
-    </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-      <button type="button" class="btn btn-outline-primary" id="button-false"
-              data-bs-toggle="tooltip"
-              data-bs-title="Slide to the left will also mark the card as FALSE"
-              [disabled]="actualQuestion"
-              (click)="onFalse()">
-      FALSE
-    </button>
-      <button  type="button" class="btn btn-primary"
-               data-bs-toggle="tooltip"
-               data-bs-title="tap on the question to switch between Question and Answer"
-               (click)=onClickCard()>
-        {{buttonText}}
-      </button>
-      <button type="button" class="btn btn-outline-primary"
-              data-bs-toggle="tooltip"
-              data-bs-title="Slide to the right will also mark the card as CORRECT"
-              [disabled]="actualQuestion"
-              (click)="onTrue()">
-        CORRECT
-      </button>
-    </div>
-  </div>
+<div class="container">
+  <span (click)=end() class="cmd-buttons"><i class="fa fa-arrow-left"></i></span>
 </div>
-
-<button type="button" class="btn btn-primary" (click)="end()">End</button>
+<div class="container">
+    <div class="jumbotron" id="learn">
+      <h1 class="display-3">{{cardHeader}}</h1>
+      <div class="clickable" id="questionbox" (click)=onClickCard()>
+        <p>{{cardBody}}</p>
+      </div>
+      <hr class="my-4">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+        <button type="button" class="btn btn-primary" id="button-false"
+                [hidden]="actualQuestion"
+                (click)="onFalse()">FALSE</button>
+        <button  type="button" class="btn btn-primary"
+                 (click)=onClickCard()>{{buttonText}}</button>
+        <button type="button" class="btn btn-primary"
+                [hidden]="actualQuestion"
+                (click)="onTrue()">CORRECT</button>
+      </div>
+    </div>
+  <p>Card: {{actualCardNumber + 1}} / {{cardArrayLength}}</p>
+</div>

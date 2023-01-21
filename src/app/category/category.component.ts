@@ -1,11 +1,9 @@
-import {Component, ElementRef, ModuleWithProviders, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {
-  UserDto,
   CategoryRestControllerService,
-  CategoryDto, ApiModule, InfoDto, LearnRestControllerService, UserRestControllerService
+  CategoryDto, InfoDto, LearnRestControllerService, UserRestControllerService
 } from "../openapi-gen";
-import {Subscription} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserLoginService} from "../services/user-login.service";
 import {ToastService} from "../services/toast.service";
 
@@ -26,7 +24,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
               private readonly userRestControllerService: UserRestControllerService,
               private userLoginService: UserLoginService,
               private readonly toastService: ToastService,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
