@@ -1,0 +1,43 @@
+version: '3.8'
+###   CAUTION this is a copy from the backend Card2Brain and has to be identical
+services:
+  card2brainweb:
+    image: rojo1/card2brainweb
+    restart: always
+    ports:
+      - 80:80
+  card2brainwebsystemtest:
+    image: rojo1/card2brainwebsystemtest
+    restart: always
+    ports:
+      - 8080:8080
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=CARD2BRAIN
+      - MYSQL_ROOT_PASSWORD=mauFJcuf5dhIMQrjj
+    ports:
+      - '3307:3306'
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - "./db:/var/lib/mysql"
+      - "./mysql-init-files/init.sql:/docker-entrypoint-initdb.d/init.sql"
+  card2brain:
+    image: rojo1/card2brain
+    restart: "no"
+    ports:
+      - '9001:9001'
+    depends_on:
+      mysql:
+        condition: service_healthy
+    build: .
+    volumes:
+      - /home/logs:/home/logs
+    command: [ 'java','-Dspring.profiles.active=mysql', '-jar', "/card2brain.jar" ]
+volumes:
+  db:
+    driver: local
