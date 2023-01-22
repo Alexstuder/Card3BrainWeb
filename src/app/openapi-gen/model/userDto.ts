@@ -16,5 +16,6 @@ export interface UserDto {
     userName?: string;
     firstName?: string;
     mailAddress?: string;
+    password?: string;
 }
 

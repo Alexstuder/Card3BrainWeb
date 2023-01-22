@@ -13,7 +13,9 @@ git_push.sh
 index.ts
 model/cardDto.ts
 model/categoryDto.ts
+model/infoDto.ts
 model/learnDto.ts
+model/loginDto.ts
 model/models.ts
 model/userDto.ts
 variables.ts
