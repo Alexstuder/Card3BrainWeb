@@ -25,5 +25,5 @@ jobs:
       - name: Deploy docker-compose_web.yml with rsync
         run: rsync -avz docker-compose_web.yml ${{ secrets.DEPLOY_USER }}@$REMOTE_HOST:/home/card2brainweb
       - name: Execute compose pull and cocker-compose up -d to start the container
-        run: ssh card2brain@$REMOTE_HOST  "docker-compose -f /home/card2brainweb/home/docker-compose_web.yml pull ; docker-compose -f /home/card2brainweb/docker-compose_web.yml up -d"
+        run: ssh card2brain@$REMOTE_HOST  "docker-compose -f /home/card2brainweb/docker-compose_web.yml pull ; docker-compose -f /home/card2brainweb/docker-compose_web.yml up -d"
 
