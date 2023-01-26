@@ -1,7 +1,7 @@
 <section class="container legend">
-  <h2 class="mt-4">User List</h2>
+  <h1 class="mt-4">User List</h1>
   <div class="row " *ngFor="let user of userList; let i = index">
-    <div class="col-sm-9 py-1 my-1" (click)=onClickUser(user)>
+    <div class="col-sm-12 py-1 my-1" (click)=onClickUser(user)>
       <span> {{user.firstName}} {{user.userName}} / {{user.mailAddress}}</span>
       <span (click)=onDelete(user) class="cmd-buttons"><i class="fa fa-trash"></i></span>
       <span (click)=onEdit(user) class="cmd-buttons"><i class="fa fa-edit"></i></span>
@@ -18,23 +18,26 @@
         <h2 class="modal-title">EditUser</h2>
       </div>
       <div class="modal-body">
-        <form class="row row-cols-lg-auto g-3 align-items-center">
-          <div class="col-12">
-            <div class="input-group mb-2">
-              <label for="firstNameTextField">first name </label>
-              <span>&nbsp;&nbsp;</span>
-              <input type="text" class="form-control" id="firstNameTextField" #firstNameTextField>
-            </div>
-            <div class="input-group">
-              <label for="userNameTextField">user name</label>
-              <span>&nbsp;&nbsp;</span>
-              <input type="text" class="form-control" id="userNameTextField" #userNameTextField>
-            </div>
-            <div class="input-group">
-              <label for="mailAdressTextField">mail address</label>
-              <span>&nbsp;&nbsp;</span>
-              <input type="text" class="form-control" id="mailAdressTextField" #mailAdressTextField>
-            </div>
+        <form>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="firstNameTextField" #firstNameTextField
+                   placeholder="Müller" >
+            <label for="firstNameTextField">first name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="test" class="form-control" id="userNameTextField" #userNameTextField
+                   placeholder="Hampi" >
+            <label for="userNameTextField">user name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="mailAdressTextField" #mailAdressTextField
+                   placeholder="hampi.mueller@gmx.ch" >
+            <label for="mailAdressTextField">mail</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="passwordTextField" #passwordTextField
+                   placeholder="1234" >
+            <label for="passwordTextField">password</label>
           </div>
         </form>
       </div>

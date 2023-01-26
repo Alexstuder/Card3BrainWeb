@@ -77,8 +77,7 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
 
   onClickCard() {
     if(this.finished ==true){
-      window.location.href="category?userid=69"; //Todo return right userid
-      return
+      this.returnPage()
     }
     this.showQuestion(!this.actualQuestion);
   }
