@@ -12,7 +12,7 @@ import {ToastService} from "../services/toast.service";
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
 })
-export class CategoryComponent implements OnInit, OnDestroy{
+export class CategoryComponent implements OnInit{
 
   categories: Array<InfoDto> | undefined;
   private userId: number | undefined;
@@ -32,10 +32,8 @@ export class CategoryComponent implements OnInit, OnDestroy{
     if (this.userId) {
       this.updateCategories();
     }else{
-      this.toastService.showErrorToast('error', 'Not logged in');
+      this.toastService.showErrorToast('error', 'Please log in');
     }
-  }
-  ngOnDestroy(): void {
   }
 
   updateCategories():void{
@@ -49,12 +47,6 @@ export class CategoryComponent implements OnInit, OnDestroy{
           console.log(err);
         })
     }
-  }
-
-  onClickCategory(category: InfoDto) {
-    //this.userLoginService.setCategory(category)
-    //this.router.navigate(["/play/"+category.categoryId])
-    //window.location.href="play?categoryid="+category.categoryId
   }
 
   onCreateCategory() {
@@ -72,10 +64,5 @@ export class CategoryComponent implements OnInit, OnDestroy{
         this.toastService.showErrorToast('error','create category gone wrong',);
       console.log(err);
     })
-  }
-
-  onEdit(category: InfoDto) {
-    this.router.navigate(["/managecards/",category.categoryId])
-    //window.location.href="managecards?categoryid="+category.categoryId+"&userid="+this.userId
   }
 }

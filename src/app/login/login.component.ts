@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     // stop here if form is invalid
     if (this.loginForm.invalid) {
+      this.toastService.showErrorToast('error','form is invalid');
       return;
     }
 
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
         this.afterLoggedIn()
       },err =>{
         if( !this.toastService.showHttpErrorToast(err))
-          this.toastService.showErrorToast('error','login gone wrong',);
+          this.toastService.showErrorToast('error','login gone wrong');
         console.log(err);
       })
 
@@ -60,6 +61,5 @@ export class LoginComponent implements OnInit {
 
   private afterLoggedIn(){
     this.router.navigate(["/category"])
-    //window.location.href="category?userid="+this.user?.id; //Todo return right userid
   }
 }

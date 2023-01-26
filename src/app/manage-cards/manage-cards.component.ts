@@ -142,7 +142,6 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
 
   onClickSubmit() {
     if (this.categoryNameTextField !== undefined){
-      let categoryNameTemp: string = this.categoryNameTextField.nativeElement.value;
       if (this.userId != undefined || this.userId != null)  {
         let tempCategories :Array<CategoryDto> = []
         this.categoryRestControllerService.getAllCategoriesOfUser(this.userId).subscribe( //Todo get the Category from the Service
