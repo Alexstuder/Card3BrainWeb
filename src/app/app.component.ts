@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastService } from './services/toast.service';
+const hammerjs = require('node_modules/hammerjs');
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,8 @@ import { ToastService } from './services/toast.service';
 })
 export class AppComponent {
   title = 'card2brainweb';
+
+  hammerjs = hammerjs;
 
   constructor(private readonly toastService: ToastService) {
   }
