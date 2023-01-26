@@ -30,7 +30,7 @@ import { Configuration }                                     from '../configurat
 })
 export class CategoryRestControllerService {
 
-    protected basePath = 'http://localhost:9001';
+    protected basePath = 'http://167.86.76.193:9001';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
@@ -203,22 +203,22 @@ export class CategoryRestControllerService {
     }
 
     /**
-     * @param id 
+     * @param categoryId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllCategoriesOfUser(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<Array<CategoryDto>>;
-    public getAllCategoriesOfUser(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<Array<CategoryDto>>>;
-    public getAllCategoriesOfUser(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<Array<CategoryDto>>>;
-    public getAllCategoriesOfUser(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getAllCategoriesOfUser.');
+    public getAllCategoriesOfUser(categoryId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<Array<CategoryDto>>;
+    public getAllCategoriesOfUser(categoryId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<Array<CategoryDto>>>;
+    public getAllCategoriesOfUser(categoryId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<Array<CategoryDto>>>;
+    public getAllCategoriesOfUser(categoryId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (categoryId === null || categoryId === undefined) {
+            throw new Error('Required parameter categoryId was null or undefined when calling getAllCategoriesOfUser.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
+        if (categoryId !== undefined && categoryId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>id, 'id');
+            <any>categoryId, 'categoryId');
         }
 
         let localVarHeaders = this.defaultHeaders;
