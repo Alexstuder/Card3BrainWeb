@@ -24,14 +24,15 @@ export class CategoryComponent implements OnInit, OnDestroy{
               private readonly userRestControllerService: UserRestControllerService,
               private userLoginService: UserLoginService,
               private readonly toastService: ToastService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private readonly router: Router) { }
 
   ngOnInit(): void {
     this.userId = this.userLoginService.getUserId()
     if (this.userId) {
       this.updateCategories();
     }else{
-      this.toastService.showErrorToast('error', 'Not loged in');
+      this.toastService.showErrorToast('error', 'Not logged in');
     }
   }
   ngOnDestroy(): void {
@@ -64,7 +65,8 @@ export class CategoryComponent implements OnInit, OnDestroy{
     this.categoryRestControllerService.createCategory(category).subscribe(
     data =>{
       this.userLoginService.setCategory(data)
-      window.location.href="managecards?categoryid="+data.id+"&userid="+this.userId
+      this.router.navigate(["/managecards/",data.id])
+      //window.location.href="managecards?categoryid="+data.id+"&userid="+this.userId
     },err =>{
       if( !this.toastService.showHttpErrorToast(err))
         this.toastService.showErrorToast('error','create category gone wrong',);
@@ -73,6 +75,7 @@ export class CategoryComponent implements OnInit, OnDestroy{
   }
 
   onEdit(category: InfoDto) {
-    window.location.href="managecards?categoryid="+category.categoryId+"&userid="+this.userId
+    this.router.navigate(["/managecards/",category.categoryId])
+    //window.location.href="managecards?categoryid="+category.categoryId+"&userid="+this.userId
   }
 }

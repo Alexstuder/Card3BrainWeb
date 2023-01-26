@@ -45,12 +45,18 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.categoryId = params['categoryid'];
-      this.userId = params['userid'];
-      this.updateCards()
-
-    })
+    let tempString = this.route.snapshot.paramMap.get('id')
+    if (tempString){
+      this.categoryId = +tempString
+    }
+    this.userId = this.userLoginService.getUserId()
+    if (!this.userId) {
+      this.toastService.showErrorToast('error', 'Not logged in');
+    }else if(!this.categoryId){
+      this.toastService.showErrorToast('error', 'category not valid');
+    }else{
+        this.updateCards();
+    }
   }
 
   updateCards():void{

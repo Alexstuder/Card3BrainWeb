@@ -14,14 +14,15 @@
           <input type="text" readonly class="form-control-plaintext" value={{category.categoryName}}
                  routerLink="/play/{{category.categoryId}}"
                  data-toggle="tooltip" data-placement="top" title="select category to start learning">
-        </div> <!--(click)=onClickCategory(category)-->
+        </div>
       </div>
       <div class="onTheRight">
           <span class="badge bg-primary rounded-pill"
                 data-toggle="tooltip" data-placement="top" title="actual to learn / total cards">
             {{category.toLearn}}/{{category.numberOfCards}}</span>
           <span>&nbsp;</span>
-          <span (click)=onEdit(category) class="cmd-buttons"
+          <span class="cmd-buttons"
+                routerLink="/managecards/{{category.categoryId}}"
                 data-toggle="tooltip" data-placement="top" title="Edit category">
             <i class="fa fa-edit"></i></span>
         </div>
