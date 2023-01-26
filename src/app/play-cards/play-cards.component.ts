@@ -7,7 +7,7 @@ import {
 } from "../openapi-gen";
 import {Subscription} from "rxjs";
 import {ToastService} from "../services/toast.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-play-cards',
@@ -33,36 +33,36 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
   constructor(private readonly cardRestControllerService :CardRestControllerService,
               private readonly toastService: ToastService,
               private readonly learnRestControllerService: LearnRestControllerService,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              private readonly router: Router) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.categoryId = params['categoryid'];
-    })
+    let tempString = this.route.snapshot.paramMap.get('id')
+    if (tempString){
+      this.categoryId = +tempString
+    }
     if(this.categoryId !== undefined) {
       this.cardsSubscription = this.learnRestControllerService.cardsToLearn(this.categoryId).subscribe(
         data => {
           this.cardsToPlay = data;
           this.cardArrayLength = data.length
           this.actualCardNumber = 0;
-          this.finished = true
-          if(this.cardsToPlay != undefined ){
-            if(this.cardsToPlay.length >= 0) {
-              this.finished = false
-            }
+          if(this.cardsToPlay&&this.cardsToPlay.length >= 0){
+            this.finished = false
+            this.actualCardNumber = 0;
+            this.showQuestion(true);
+          } else{
+            this.toastService.showWarningToast('No Cards', 'No Cards to learn in this category');
+            this.returnPage()
           }
-          if(this.finished){
-            this.setToTheEnd()
-          }
-          this.showQuestion(true);
         }, err => {
           if (!this.toastService.showHttpErrorToast(err))
-            this.toastService.showErrorToast('error', 'get all user gone wrong',);
+            this.toastService.showErrorToast('error', 'get all user gone wrong');
           console.log(err);
         })
-
+    }else{
+      this.toastService.showErrorToast('error', 'category is invalid');
     }
-
 
     this.actualCardNumber = 0;
     this.showQuestion(true);
@@ -144,7 +144,7 @@ err =>{
     this.actualQuestion = true;
   }
 
-  end() {
-    window.location.href="category?userid=69"; //Todo return right userid
+  returnPage() {
+    this.router.navigate(["/category"])
   }
 }

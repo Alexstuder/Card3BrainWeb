@@ -21,11 +21,11 @@ const routes: Routes = [
     component: UsersComponent
   },
   {
-    path: 'managecards',
+    path: 'managecards/:id',
     component: ManageCardsComponent
   },
   {
-    path: 'play',
+    path: 'play/:id',
     component: PlayCardsComponent
   },
   {
