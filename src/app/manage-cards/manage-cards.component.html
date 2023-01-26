@@ -2,7 +2,8 @@
 <form class="row row-cols-lg-auto g-3 align-items-center">
   <div class="col-9">
     <div class="input-group">
-      <input type="text" class="form-control" id="categoryNameTextField" #categoryNameTextField >
+      <input type="text" class="form-control" id="categoryNameTextField"
+             #categoryNameTextField (keydown.enter)=onClickSubmit() (keydown.enter)="categoryNameTextField.blur()">
     </div>
   </div>
 
@@ -13,7 +14,9 @@
 <div class="card-container mat-elevation-z8">
   <div style="display: flex; justify-content: space-between;">
     <h1 class="mt-4">cards</h1>
-    <span (click)=onCreateCard() class="cmd-buttons">New <i class="fa fa-plus"></i></span>
+    <div class="d-flex align-items-end">
+      <span (click)=onCreateCard() class="cmd-buttons">New <i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;</span>
+    </div>
   </div>
   <div class="card-table-container">
     <table mat-table [dataSource]="dataSource" class="card-table">
@@ -53,13 +56,26 @@
         <h2 class="modal-title">{{modalTitle}}</h2>
       </div>
         <div class="modal-body">
+          <form>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="questionTextField" #questionTextField
+                     placeholder="question" >
+              <label for="questionTextField">Question</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="answerTextField" #answerTextField
+                     placeholder="answer" >
+              <label for="questionTextField">Answer</label>
+            </div>
+          </form>
+          <!--
           <form class="row row-cols-lg-auto g-3 align-items-center">
             <div class="col-12">
-              <div class="input-group mb-2">
-                <label for="questionTextField">Question </label>
-                <span>&nbsp;&nbsp;</span>
-                <input type="text" class="form-control" id="questionTextField" #questionTextField
+              <div class="form-group row">
+                <label class="col-sm-1 col-form-label" for="questionTextField">Question </label>
+                <input type="text" class="form-control col-sm-2" id="questionTextField" #questionTextField
                        placeholder="Question 1" autocomplete="on">
+                <label for="questionTextField">Email address</label>
               </div>
               <div class="input-group">
                 <label for="answerTextField">Answer</label>
@@ -69,6 +85,7 @@
               </div>
             </div>
           </form>
+          -->
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="onSave()" >{{modalButtonText}}</button>
