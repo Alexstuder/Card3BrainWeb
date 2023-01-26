@@ -14,7 +14,7 @@
 export interface InfoDto { 
     numberOfCards?: number;
     toLearn?: number;
-    categoryName?: string;
     categoryId?: number;
+    categoryName?: string;
 }
 

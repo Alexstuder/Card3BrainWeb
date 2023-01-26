@@ -31,7 +31,7 @@ import { Configuration }                                     from '../configurat
 })
 export class LearnRestControllerService {
 
-    protected basePath = 'http://167.86.76.193:9001';
+    protected basePath = 'http://localhost:9001';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;

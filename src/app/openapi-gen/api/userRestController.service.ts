@@ -32,7 +32,7 @@ import { Configuration }                                     from '../configurat
 })
 export class UserRestControllerService {
 
-    protected basePath = 'http://167.86.76.193:9001';
+    protected basePath = 'http://localhost:9001';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
@@ -148,22 +148,22 @@ export class UserRestControllerService {
     }
 
     /**
-     * @param id 
+     * @param userId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteUser(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<UserDto>;
-    public deleteUser(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<UserDto>>;
-    public deleteUser(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<UserDto>>;
-    public deleteUser(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteUser.');
+    public deleteUser(userId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<UserDto>;
+    public deleteUser(userId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<UserDto>>;
+    public deleteUser(userId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<UserDto>>;
+    public deleteUser(userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling deleteUser.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
+        if (userId !== undefined && userId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>id, 'id');
+            <any>userId, 'userId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -297,22 +297,22 @@ export class UserRestControllerService {
     }
 
     /**
-     * @param id 
+     * @param userId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getInfosOfUser(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<Array<InfoDto>>;
-    public getInfosOfUser(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<Array<InfoDto>>>;
-    public getInfosOfUser(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<Array<InfoDto>>>;
-    public getInfosOfUser(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getInfosOfUser.');
+    public getInfosOfUser(userId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<Array<InfoDto>>;
+    public getInfosOfUser(userId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<Array<InfoDto>>>;
+    public getInfosOfUser(userId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<Array<InfoDto>>>;
+    public getInfosOfUser(userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling getInfosOfUser.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
+        if (userId !== undefined && userId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>id, 'id');
+            <any>userId, 'userId');
         }
 
         let localVarHeaders = this.defaultHeaders;

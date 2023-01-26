@@ -3,7 +3,7 @@ info:
   title: OpenAPI definition
   version: v0
 servers:
-- url: http://167.86.76.193:9001
+- url: http://localhost:9001
   description: Generated server url
 paths:
   /api/users/:
@@ -59,7 +59,7 @@ paths:
       - user-rest-controller
       operationId: deleteUser
       parameters:
-      - name: id
+      - name: userId
         in: query
         required: true
         schema:
@@ -132,7 +132,7 @@ paths:
       - category-rest-controller
       operationId: deleteCategory
       parameters:
-      - name: id
+      - name: categoryId
         in: query
         required: true
         schema:
@@ -361,7 +361,7 @@ paths:
       - user-rest-controller
       operationId: getInfosOfUser
       parameters:
-      - name: id
+      - name: userId
         in: query
         required: true
         schema:
@@ -466,8 +466,8 @@ components:
         toLearn:
           type: integer
           format: int32
-        categoryName:
-          type: string
         categoryId:
           type: integer
           format: int64
+        categoryName:
+          type: string

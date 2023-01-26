@@ -15,7 +15,7 @@ import {ToastService} from "../services/toast.service";
 export class CategoryComponent implements OnInit, OnDestroy{
 
   categories: Array<InfoDto> | undefined;
-  private userId: number = 0
+  private userId: number | undefined;
 
   hidden:boolean = true
 
@@ -27,11 +27,12 @@ export class CategoryComponent implements OnInit, OnDestroy{
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.userId = params['userid'];
-    });
-    this.updateCategories();
-
+    this.userId = this.userLoginService.getUserId()
+    if (this.userId) {
+      this.updateCategories();
+    }else{
+      this.toastService.showErrorToast('error', 'Not loged in');
+    }
   }
   ngOnDestroy(): void {
   }
@@ -50,8 +51,9 @@ export class CategoryComponent implements OnInit, OnDestroy{
   }
 
   onClickCategory(category: InfoDto) {
-    this.userLoginService.setCategory(category)
-    window.location.href="play?categoryid="+category.categoryId
+    //this.userLoginService.setCategory(category)
+    //this.router.navigate(["/play/"+category.categoryId])
+    //window.location.href="play?categoryid="+category.categoryId
   }
 
   onCreateCategory() {

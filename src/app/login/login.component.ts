@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginDto, UserDto, UserRestControllerService} from "../openapi-gen";
 import {ToastService} from "../services/toast.service";
 import {UserLoginService} from "../services/user-login.service";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor( private formBuilder: FormBuilder,
                private readonly userRestControllerService: UserRestControllerService,
                private readonly toastService: ToastService,
-               private userLoginService: UserLoginService){}
+               private userLoginService: UserLoginService,
+               private readonly router: Router){}
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
@@ -57,6 +59,7 @@ export class LoginComponent implements OnInit {
   }
 
   private afterLoggedIn(){
-    window.location.href="category?userid="+this.user?.id; //Todo return right userid
+    this.router.navigate(["/category"])
+    //window.location.href="category?userid="+this.user?.id; //Todo return right userid
   }
 }

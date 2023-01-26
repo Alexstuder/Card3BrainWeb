@@ -1,24 +1,30 @@
 <section class="container legend">
   <div style="display: flex; justify-content: space-between;">
-    <h1 class="mt-4">chose category</h1>
-    <span (click)=onCreateCategory() class="cmd-buttons">New <i class="fa fa-plus"></i></span>
+    <h1 class="mt-4">choose a category</h1>
+    <div class="d-flex align-items-end">
+      <span (click)=onCreateCategory() class="cmd-buttons"
+            data-toggle="tooltip" data-placement="bottom" title="Create new category">
+        New <i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;</span>
+    </div>
   </div>
   <ul class="list-group" *ngFor="let category of categories; let i = index">
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <div class="onTheLeft">
-        <!-- <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio{{i}}" (click)=onClickCategory(category)>
-        <label class="form-check-label" for="firstRadio{{i}}">
-          {{category.categoryName}}
-        </label> -->
         <div class="col-sm-12">
-          <input type="text" readonly class="form-control-plaintext" value={{category.categoryName}} (click)=onClickCategory(category)>
-        </div>
+          <input type="text" readonly class="form-control-plaintext" value={{category.categoryName}}
+                 routerLink="/play/{{category.categoryId}}"
+                 data-toggle="tooltip" data-placement="top" title="select category to start learning">
+        </div> <!--(click)=onClickCategory(category)-->
       </div>
       <div class="onTheRight">
-        <span class="badge bg-primary rounded-pill">{{category.toLearn}}/{{category.numberOfCards}}</span>
-        <span>&nbsp;</span>
-        <span (click)=onEdit(category) class="cmd-buttons"><i class="fa fa-edit"></i></span>
-      </div>
+          <span class="badge bg-primary rounded-pill"
+                data-toggle="tooltip" data-placement="top" title="actual to learn / total cards">
+            {{category.toLearn}}/{{category.numberOfCards}}</span>
+          <span>&nbsp;</span>
+          <span (click)=onEdit(category) class="cmd-buttons"
+                data-toggle="tooltip" data-placement="top" title="Edit category">
+            <i class="fa fa-edit"></i></span>
+        </div>
     </li>
   </ul>
 </section>
