@@ -140,6 +140,8 @@ err =>{
   private setToTheEnd(){
     this.cardBody = "All Questions done, go back to manage Category and select a new one"
     this.buttonText = "manage Category";
+    this.actualCardNumber = 0
+    this.cardArrayLength = 1
     this.actualQuestion = true;
   }
 

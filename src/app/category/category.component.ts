@@ -58,11 +58,21 @@ export class CategoryComponent implements OnInit{
     data =>{
       this.userLoginService.setCategory(data)
       this.router.navigate(["/managecards/",data.id])
-      //window.location.href="managecards?categoryid="+data.id+"&userid="+this.userId
     },err =>{
       if( !this.toastService.showHttpErrorToast(err))
         this.toastService.showErrorToast('error','create category gone wrong',);
       console.log(err);
     })
+  }
+
+  onDeleteCategory(category: InfoDto) {
+    this.categoryRestControllerService.deleteCategory(category.categoryId??0).subscribe(
+      data =>{
+        this.updateCategories()
+      },err =>{
+        if( !this.toastService.showHttpErrorToast(err))
+          this.toastService.showErrorToast('error','delete category gone wrong',);
+        console.log(err);
+      })
   }
 }
