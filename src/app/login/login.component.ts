@@ -56,31 +56,15 @@ export class LoginComponent implements OnInit {
           this.toastService.showErrorToast('error','login gone wrong');
         console.log(err);
       })
-
-    /*
-    let loginUser: LoginDto = {
-      mailAddress: this.loginForm.controls.email.value,
-      password: this.loginForm.controls.password.value
-    }
-    this.userRestControllerService.login(loginUser).subscribe(  //ToDo how to have the service static
-      data =>{
-        this.userLoginService.setUser(data)
-        this.user = data
-        this.afterLoggedIn()
-      },err =>{
-        if( !this.toastService.showHttpErrorToast(err))
-          this.toastService.showErrorToast('error','login gone wrong');
-        console.log(err);
-      })
-      */
   }
   ngOnInit() {
+    if(this.userLoginService.tokenSet()){
+      this.afterLoggedIn()
+    }
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-
-
   }
 
   forgotPassword() {

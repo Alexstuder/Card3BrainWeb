@@ -56,7 +56,6 @@ export class CategoryComponent implements OnInit{
     }
     this.categoryRestControllerService.createCategory(category).subscribe(
     data =>{
-      this.userLoginService.setCategory(data)
       this.router.navigate(["/managecards/",data.id])
     },err =>{
       if( !this.toastService.showHttpErrorToast(err))

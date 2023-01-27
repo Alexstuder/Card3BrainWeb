@@ -166,7 +166,6 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
           },
           err => console.log(err));
         this.categoryNameTextField.nativeElement.value=this.selectedCategory.categoryName;
-        this.userLoginService.setCategory(this.selectedCategory)
       }
     }
   }
