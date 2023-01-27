@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
 
   loginForm:any = FormGroup;
   submitted = false;
-  private user : UserDto | undefined
 
   constructor( private formBuilder: FormBuilder,
                private readonly userRestControllerService: UserRestControllerService,

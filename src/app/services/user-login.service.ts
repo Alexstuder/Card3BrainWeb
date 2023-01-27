@@ -19,6 +19,9 @@ export class UserLoginService {
   private token : string | undefined
   private tokenId : number | undefined
 
+  loggedUser : string = "NotLoggedIn"
+  loggedIn   : boolean = false
+
   constructor(private apiConfiguration: Configuration) {}
 
   getUserId(){
@@ -32,9 +35,11 @@ export class UserLoginService {
         this.apiConfiguration.credentials = {"bearerAuth":  token}
         let decoded: Token  = jwt_decode(token);
         this.tokenId = +decoded.ID;
+        this.loggedUser = decoded.sub;
         this.token = token
+        this.loggedIn = true
       } catch(Error) {
-
+        this.resetToken()
       }
   }
 
@@ -44,5 +49,12 @@ export class UserLoginService {
     }else{
       return false
     }
+  }
+
+  resetToken(){
+    this.token = undefined
+    this.loggedIn = false
+    this.loggedUser = "NotLoggedIn"
+    this.apiConfiguration.credentials = {"bearerAuth":  "1"}
   }
 }

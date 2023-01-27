@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastService } from './services/toast.service';
+import {UserLoginService} from "./services/user-login.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import { ToastService } from './services/toast.service';
 export class AppComponent {
   title = 'card2brainweb';
 
-  constructor(private readonly toastService: ToastService) {
+  constructor(private readonly toastService: ToastService,
+              readonly userLoginService: UserLoginService) {
   }
 
   showToast() {
@@ -21,5 +23,7 @@ export class AppComponent {
     this.myEvent = $event;
   }
 
-
+  logout(){
+    this.userLoginService.resetToken()
+  }
 }
