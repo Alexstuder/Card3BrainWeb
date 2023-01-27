@@ -5,6 +5,7 @@ import {CardDto, CardRestControllerService, CategoryDto, CategoryRestControllerS
 import { ToastService } from '../services/toast.service';
 import {ActivatedRoute} from "@angular/router";
 import {UserLoginService} from "../services/user-login.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-manage-cards',
@@ -31,6 +32,9 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
   modalOpen : boolean = false
   display='none';
   selectedCard : CardDto | undefined
+
+  private categorySub : Subscription | undefined
+  private cardSub : Subscription | undefined
 
   @ViewChild('categoryNameTextField', {static: true}) categoryNameTextField: ElementRef | undefined;
   @ViewChild('questionTextField', {static: true}) questionTextField: ElementRef | undefined;
@@ -62,8 +66,8 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
   updateCards():void{
     if (this.userId != undefined) {
       let tempCategories: Array<CategoryDto> = []
-      this.categoryRestControllerService.getAllCategoriesOfUser(this.userId).subscribe( //Todo get the Category from the Service
-        data => {
+      this.categorySub = this.categoryRestControllerService.getAllCategoriesOfUser(this.userId).subscribe({
+        next: (data) => {
           tempCategories = data
           for (var i = 0; i < tempCategories.length; i++) {
             if (tempCategories[i].id == this.categoryId) {
@@ -73,31 +77,38 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
               }
             }
           }
-        }, err => {
+        },
+        error: (err) => {
           if (!this.toastService.showHttpErrorToast(err))
             this.toastService.showErrorToast('error', 'get categories gone wrong',);
           console.log(err);
-        })
+        }
+      })
 
     }
 
     if (this.categoryId != undefined)  {
       this.loading = true
-      this.cardRestControllerService.getCardsByCategory(this.categoryId).subscribe(
-        data =>{
+      this.cardSub = this.cardRestControllerService.getCardsByCategory(this.categoryId).subscribe({
+        next: (data) => {
           this.dataSource = new MatTableDataSource(data)
           this.resultsLength = data.length
           this.loading = false
-        },err => {
+        },
+        error: (err) => {
           if (!this.toastService.showHttpErrorToast(err))
             this.toastService.showErrorToast('error', 'update cards gone wrong',);
           console.log(err);
           this.loading = false
-        });
+        }
+      });
     }
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.categorySub?.unsubscribe()
+    this.cardSub?.unsubscribe()
+  }
 
   onCreateCard() {
     this.modalCreate = true
@@ -128,43 +139,49 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
 
   onDeleteCard(card : CardDto) {
     if (card?.id){
-      this.cardRestControllerService.deleteCard(card.id).subscribe(
-        data=>{
+      this.cardSub = this.cardRestControllerService.deleteCard(card.id).subscribe({
+        next: (data) => {
           this.updateCards();
-        },err =>{
-          if( !this.toastService.showHttpErrorToast(err))
-            this.toastService.showErrorToast('error','delete card gone wrong',);
-          console.log(err);
-        })
+        },
+        error: (err)=> {
+        if (!this.toastService.showHttpErrorToast(err))
+          this.toastService.showErrorToast('error', 'delete card gone wrong',);
+        console.log(err);
+        }
+      })
     }
-
   }
 
   onClickSubmit() {
     if (this.categoryNameTextField !== undefined){
       if (this.userId != undefined || this.userId != null)  {
         let tempCategories :Array<CategoryDto> = []
-        this.categoryRestControllerService.getAllCategoriesOfUser(this.userId).subscribe( //Todo get the Category from the Service
-          data=>{
+        this.categorySub = this.categoryRestControllerService.getAllCategoriesOfUser(this.userId).subscribe({
+          next: (data) => {
             tempCategories = data
-          },err =>{
-            if( !this.toastService.showHttpErrorToast(err))
-              this.toastService.showErrorToast('error','get categories gone wrong',);
+          },
+          error: (err) => {
+            if (!this.toastService.showHttpErrorToast(err))
+              this.toastService.showErrorToast('error', 'get categories gone wrong',);
             console.log(err);
-          })
+          }
+        })
         for (var i = 0; i < tempCategories.length; i++) {
           if(tempCategories[i].id == this.categoryId){
             this.selectedCategory = tempCategories[i]
           }
         }
         this.selectedCategory.categoryName = this.categoryNameTextField.nativeElement.value
-        this.categoryRestControllerService.updateCategory(this.selectedCategory).subscribe(
-          data =>{
+        this.categorySub = this.categoryRestControllerService.updateCategory(this.selectedCategory).subscribe({
+          next: (data) =>{
             this.selectedCategory = data;
             // @ts-ignore
             this.categoryNameTextField.nativeElement.value = this.selectedCategory.categoryName
           },
-          err => console.log(err));
+          error: (err) => {
+            console.log(err)
+          }
+        })
         this.categoryNameTextField.nativeElement.value=this.selectedCategory.categoryName;
       }
     }
@@ -182,28 +199,32 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
           question : this.questionTextField.nativeElement.value,
           categoryId : this.categoryId
         }
-        this.cardRestControllerService.addCard(card).subscribe(
-          data=>{
+        this.cardSub = this.cardRestControllerService.addCard(card).subscribe({
+          next: (data) => {
             this.updateCards();
-          },err =>{
-            if( !this.toastService.showHttpErrorToast(err))
-              this.toastService.showErrorToast('error','create card gone wrong',);
+          },
+          error:(err) => {
+            if (!this.toastService.showHttpErrorToast(err))
+              this.toastService.showErrorToast('error', 'create card gone wrong',);
             console.log(err);
-          })
+          }
+        })
       }
     } else{
       if(this.selectedCard) {
         if (this.answerTextField !== undefined && this.questionTextField !== undefined) {
           this.selectedCard.answer = this.answerTextField.nativeElement.value
           this.selectedCard.question = this.questionTextField.nativeElement.value
-          this.cardRestControllerService.updateCard(this.selectedCard).subscribe(
-            data=>{
+          this.cardSub = this.cardRestControllerService.updateCard(this.selectedCard).subscribe({
+            next: (data) => {
               this.updateCards();
-            },err =>{
-              if( !this.toastService.showHttpErrorToast(err))
-                this.toastService.showErrorToast('error','update card gone wrong',);
+            },
+            error: (err) => {
+              if (!this.toastService.showHttpErrorToast(err))
+                this.toastService.showErrorToast('error', 'update card gone wrong',);
               console.log(err);
-            })
+            }
+          })
         }
       }
     }

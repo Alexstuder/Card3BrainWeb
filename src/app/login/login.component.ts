@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {
   AuthenticationControllerService,
@@ -9,16 +9,19 @@ import {
 import {ToastService} from "../services/toast.service";
 import {UserLoginService} from "../services/user-login.service";
 import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy{
 
   loginForm:any = FormGroup;
   submitted = false;
+
+  private userSub : Subscription | undefined
 
   constructor( private formBuilder: FormBuilder,
                private readonly userRestControllerService: UserRestControllerService,
@@ -40,15 +43,17 @@ export class LoginComponent implements OnInit {
       password:this.loginForm.controls.password.value
     }
 
-    this.authenticationRestControllerService.authenticate(authReq).subscribe(
-      data =>{
-        this.userLoginService.setToken(data.token??"")
+    this.userSub = this.authenticationRestControllerService.authenticate(authReq).subscribe({
+      next: (data) => {
+        this.userLoginService.setToken(data.token ?? "")
         this.afterLoggedIn()
-      },err =>{
-        if( !this.toastService.showHttpErrorToast(err))
-          this.toastService.showErrorToast('error','login gone wrong');
+      },
+      error: (err) => {
+        if (!this.toastService.showHttpErrorToast(err))
+          this.toastService.showErrorToast('error', 'login gone wrong');
         console.log(err);
-      })
+      }
+    })
   }
   ngOnInit() {
     if(this.userLoginService.isTokenSet()){
@@ -66,5 +71,9 @@ export class LoginComponent implements OnInit {
 
   private afterLoggedIn(){
     this.router.navigate(["/category"])
+  }
+
+  ngOnDestroy(): void {
+    this.userSub?.unsubscribe()
   }
 }
