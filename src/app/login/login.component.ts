@@ -44,12 +44,6 @@ export class LoginComponent implements OnInit {
     this.authenticationRestControllerService.authenticate(authReq).subscribe(
       data =>{
         this.userLoginService.setToken(data.token??"")
-        let token : string = data.token??""
-
-        //this.authenticationRestControllerService.configuration.withCredentials = true
-        this.authenticationRestControllerService.configuration.credentials = {"bearerAuth":  token}
-        //this.authenticationRestControllerService.configuration.credentials = {bearer: token}
-        //this.authenticationRestControllerService.configuration.accessToken = token
         this.afterLoggedIn()
       },err =>{
         if( !this.toastService.showHttpErrorToast(err))
