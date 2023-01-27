@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ToastService } from './services/toast.service';
-const hammerjs = require('node_modules/hammerjs');
 
 @Component({
   selector: 'app-root',
@@ -9,8 +8,6 @@ const hammerjs = require('node_modules/hammerjs');
 })
 export class AppComponent {
   title = 'card2brainweb';
-
-  hammerjs = hammerjs;
 
   constructor(private readonly toastService: ToastService) {
   }
@@ -23,4 +20,6 @@ export class AppComponent {
   onMyEvent($event: string) {
     this.myEvent = $event;
   }
+
+
 }

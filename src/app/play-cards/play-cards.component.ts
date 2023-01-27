@@ -47,7 +47,7 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
           this.cardsToPlay = data;
           this.cardArrayLength = data.length
           this.actualCardNumber = 0;
-          if(this.cardsToPlay&&this.cardsToPlay.length > 0){
+          if(this.cardsToPlay&&this.cardsToPlay.length >= 0){
             this.finished = false
             this.actualCardNumber = 0;
             this.showQuestion(true);
@@ -71,27 +71,6 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
-
-    let questionbox = document.getElementById('questionbox');
-    if (questionbox) {
-      let hamming = new Hammer(questionbox);
-      hamming.on("panleft panright tap", (ev) => {
-        if (ev.type == "panleft") {
-          if(!this.actualQuestion) {
-            this.onTrue();
-          }
-        }
-        if (ev.type == "panright") {
-          if(!this.actualQuestion) {
-            this.onFalse();
-          }
-        }
-        if (ev.type == "tap") {
-          this.onClickCard()
-        }
-        //console.log(ev.type + " gesture detected." + this.tabs);
-      });
-    }
   }
   ngOnDestroy(): void {
   }
@@ -121,14 +100,12 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
   }
 
   onFalse() {
-    console.log("send FALSE back");
     if(this.sendBack(false)) {
       this.nextCard()
     }
   }
 
   onTrue() {
-    console.log("send TRUE back");
     if(this.sendBack(true)) {
       this.nextCard()
     }
@@ -163,8 +140,6 @@ err =>{
   private setToTheEnd(){
     this.cardBody = "All Questions done, go back to manage Category and select a new one"
     this.buttonText = "manage Category";
-    this.actualCardNumber = 0
-    this.cardArrayLength = 1
     this.actualQuestion = true;
   }
 

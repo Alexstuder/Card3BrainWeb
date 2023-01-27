@@ -2,8 +2,10 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
+import { AuthenticationControllerService } from './api/authenticationController.service';
 import { CardRestControllerService } from './api/cardRestController.service';
 import { CategoryRestControllerService } from './api/categoryRestController.service';
+import { DemoControllerService } from './api/demoController.service';
 import { HealthCheckService } from './api/healthCheck.service';
 import { LearnRestControllerService } from './api/learnRestController.service';
 import { UserRestControllerService } from './api/userRestController.service';

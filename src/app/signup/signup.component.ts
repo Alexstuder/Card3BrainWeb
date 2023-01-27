@@ -17,6 +17,8 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
+
+      /*
       let user: UserDto = {
         userName: this.model.lastName,
         firstName: this.model.firstName,
@@ -32,6 +34,7 @@ export class SignupComponent implements OnInit {
             this.toastService.showErrorToast('error','create user gone wrong',);
           console.log(err);
         })
+       */
     }
   }
 }

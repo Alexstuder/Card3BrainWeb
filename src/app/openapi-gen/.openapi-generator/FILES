@@ -2,8 +2,10 @@
 README.md
 api.module.ts
 api/api.ts
+api/authenticationController.service.ts
 api/cardRestController.service.ts
 api/categoryRestController.service.ts
+api/demoController.service.ts
 api/healthCheck.service.ts
 api/learnRestController.service.ts
 api/userRestController.service.ts
@@ -11,6 +13,7 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/authenticationResponse.ts
 model/cardDto.ts
 model/categoryDto.ts
 model/infoDto.ts

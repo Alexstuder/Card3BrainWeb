@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {LoginDto, UserDto, UserRestControllerService} from "../openapi-gen";
+import {
+  AuthenticationControllerService,
+  LoginDto,
+  UserDto,
+  UserRestControllerService
+} from "../openapi-gen";
 import {ToastService} from "../services/toast.service";
 import {UserLoginService} from "../services/user-login.service";
 import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   constructor( private formBuilder: FormBuilder,
                private readonly userRestControllerService: UserRestControllerService,
+               private readonly authenticationRestControllerService: AuthenticationControllerService,
                private readonly toastService: ToastService,
                private userLoginService: UserLoginService,
                private readonly router: Router){}
@@ -29,7 +36,28 @@ export class LoginComponent implements OnInit {
       this.toastService.showErrorToast('error','form is invalid');
       return;
     }
+    let authReq: LoginDto = {
+      mailAddress: this.loginForm.controls.email.value,
+      password:this.loginForm.controls.password.value
+    }
 
+    this.authenticationRestControllerService.authenticate(authReq).subscribe(
+      data =>{
+        this.userLoginService.setToken(data.token??"")
+        let token : string = data.token??""
+
+        //this.authenticationRestControllerService.configuration.withCredentials = true
+        this.authenticationRestControllerService.configuration.credentials = {"bearerAuth":  token}
+        //this.authenticationRestControllerService.configuration.credentials = {bearer: token}
+        //this.authenticationRestControllerService.configuration.accessToken = token
+        this.afterLoggedIn()
+      },err =>{
+        if( !this.toastService.showHttpErrorToast(err))
+          this.toastService.showErrorToast('error','login gone wrong');
+        console.log(err);
+      })
+
+    /*
     let loginUser: LoginDto = {
       mailAddress: this.loginForm.controls.email.value,
       password: this.loginForm.controls.password.value
@@ -44,7 +72,7 @@ export class LoginComponent implements OnInit {
           this.toastService.showErrorToast('error','login gone wrong');
         console.log(err);
       })
-
+      */
   }
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

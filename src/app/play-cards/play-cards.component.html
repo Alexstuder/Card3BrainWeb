@@ -4,19 +4,19 @@
 <div class="container">
     <div class="jumbotron" id="learn">
       <h1 class="display-3">{{cardHeader}}</h1>
-      <div class="clickable" id="questionbox" >
+      <div class="clickable" id="questionbox" (click)=onClickCard()>
         <p>{{cardBody}}</p>
       </div>
       <hr class="my-4">
       <div class="d-grid gap-2 d-md-flex justify-content-md-center">
         <button type="button" class="btn btn-primary" id="button-false"
                 [hidden]="actualQuestion"
-                (click)="onFalse()">&lt;&lt; FALSE</button>
+                (click)="onFalse()">FALSE</button>
         <button  type="button" class="btn btn-primary"
                  (click)=onClickCard()>{{buttonText}}</button>
         <button type="button" class="btn btn-primary"
                 [hidden]="actualQuestion"
-                (click)="onTrue()">CORRECT &gt;&gt;</button>
+                (click)="onTrue()">CORRECT</button>
       </div>
     </div>
   <p>Card: {{actualCardNumber + 1}} / {{cardArrayLength}}</p>
