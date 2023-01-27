@@ -2,8 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as bootstrap from 'bootstrap';
 import {
   CardDto, CardRestControllerService,
-  CategoryDto, LearnDto, LearnRestControllerService,
-  UserDto,
+  LearnDto, LearnRestControllerService,
 } from "../openapi-gen";
 import {Subscription} from "rxjs";
 import {ToastService} from "../services/toast.service";
@@ -42,24 +41,26 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
       this.categoryId = +tempString
     }
     if(this.categoryId !== undefined) {
-      this.cardsSubscription = this.learnRestControllerService.cardsToLearn(this.categoryId).subscribe(
-        data => {
+      this.cardsSubscription = this.learnRestControllerService.cardsToLearn(this.categoryId).subscribe({
+        next: (data) => {
           this.cardsToPlay = data;
           this.cardArrayLength = data.length
           this.actualCardNumber = 0;
-          if(this.cardsToPlay&&this.cardsToPlay.length >= 0){
+          if (this.cardsToPlay && this.cardsToPlay.length >= 0) {
             this.finished = false
             this.actualCardNumber = 0;
             this.showQuestion(true);
-          } else{
+          } else {
             this.toastService.showWarningToast('No Cards', 'No Cards to learn in this category');
             this.returnPage()
           }
-        }, err => {
+        },
+        error: (err) => {
           if (!this.toastService.showHttpErrorToast(err))
             this.toastService.showErrorToast('error', 'get all user gone wrong');
           console.log(err);
-        })
+        }
+      })
     }else{
       this.toastService.showErrorToast('error', 'category is invalid');
     }
@@ -67,8 +68,8 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
     this.actualCardNumber = 0;
     this.showQuestion(true);
 
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
   }
@@ -76,7 +77,7 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
   }
 
   onClickCard() {
-    if(this.finished ==true){
+    if(this.finished){
       this.returnPage()
     }
     this.showQuestion(!this.actualQuestion);
@@ -117,15 +118,14 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
       correct: resultCorrect
     }
 
-    this.learnSubscription = this.learnRestControllerService.cardLearned(learnDto).subscribe(
-      data => {
-      },
-err =>{
-        if( !this.toastService.showHttpErrorToast(err))
-          this.toastService.showErrorToast('error','learn Rest gone wrong',);
+    this.learnSubscription = this.learnRestControllerService.cardLearned(learnDto).subscribe({
+      error: (err) => {
+        if (!this.toastService.showHttpErrorToast(err))
+          this.toastService.showErrorToast('error', 'learn Rest gone wrong',);
         console.log(err);
         return false
-      })
+      }
+    })
     return true
   }
 
@@ -138,6 +138,7 @@ err =>{
     }
   }
   private setToTheEnd(){
+    this.finished = true
     this.cardBody = "All Questions done, go back to manage Category and select a new one"
     this.buttonText = "manage Category";
     this.actualCardNumber = 0

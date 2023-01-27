@@ -1,7 +1,6 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { MatPaginator } from "@angular/material/paginator";
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { MatTableDataSource } from "@angular/material/table";
-import {CardDto, CardRestControllerService, CategoryDto, CategoryRestControllerService, LoginDto} from "../openapi-gen";
+import {CardDto, CardRestControllerService, CategoryDto, CategoryRestControllerService} from "../openapi-gen";
 import { ToastService } from '../services/toast.service';
 import {ActivatedRoute} from "@angular/router";
 import {UserLoginService} from "../services/user-login.service";
@@ -140,7 +139,7 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
   onDeleteCard(card : CardDto) {
     if (card?.id){
       this.cardSub = this.cardRestControllerService.deleteCard(card.id).subscribe({
-        next: (data) => {
+        next: () => {
           this.updateCards();
         },
         error: (err)=> {
@@ -200,7 +199,7 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
           categoryId : this.categoryId
         }
         this.cardSub = this.cardRestControllerService.addCard(card).subscribe({
-          next: (data) => {
+          next: () => {
             this.updateCards();
           },
           error:(err) => {
@@ -216,7 +215,7 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
           this.selectedCard.answer = this.answerTextField.nativeElement.value
           this.selectedCard.question = this.questionTextField.nativeElement.value
           this.cardSub = this.cardRestControllerService.updateCard(this.selectedCard).subscribe({
-            next: (data) => {
+            next: () => {
               this.updateCards();
             },
             error: (err) => {
