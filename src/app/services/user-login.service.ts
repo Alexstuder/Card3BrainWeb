@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {CategoryDto, Configuration} from "../openapi-gen";
 import jwt_decode from 'jwt-decode';
 
+const USER_KEY : string ="auth-user"
 
 interface  Token {
   sub: string;
@@ -16,7 +17,6 @@ interface  Token {
 
 export class UserLoginService {
 
-  private token : string | undefined
   private tokenId : number | undefined
 
   loggedUser : string = "NotLoggedIn"
@@ -29,30 +29,38 @@ export class UserLoginService {
   }
 
   setToken(token:string){
-    if(token && !(token==""))
-      //this.apiConfiguration.accessToken = this.token;
-      try {
-        this.apiConfiguration.credentials = {"bearerAuth":  token}
-        let decoded: Token  = jwt_decode(token);
-        this.tokenId = +decoded.ID;
-        this.loggedUser = decoded.sub;
-        this.token = token
-        this.loggedIn = true
-      } catch(Error) {
-        this.resetToken()
-      }
+    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.setItem(USER_KEY, token);
+    console.log("token saved: "+token)
+    this.readToken()
   }
 
-  tokenSet(){
-    if(this.token){
-      return true
+  private readToken(){
+    let token = window.sessionStorage.getItem(USER_KEY);
+    console.log("token readed: "+token)
+    if(token && !(token=="")) {
+      //this.apiConfiguration.accessToken = this.token;
+      try {
+        this.apiConfiguration.credentials = {"bearerAuth": token}
+        let decoded: Token = jwt_decode(token);
+        this.tokenId = +decoded.ID;
+        this.loggedUser = decoded.sub;
+        this.loggedIn = true
+      } catch (Error) {
+        this.resetToken()
+      }
     }else{
-      return false
+      this.resetToken()
     }
   }
 
+  isTokenSet(){
+    this.readToken()
+    return this.loggedIn
+  }
+
   resetToken(){
-    this.token = undefined
+    window.sessionStorage.clear()
     this.loggedIn = false
     this.loggedUser = "NotLoggedIn"
     this.apiConfiguration.credentials = {"bearerAuth":  "1"}

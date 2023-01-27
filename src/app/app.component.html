@@ -1,7 +1,6 @@
 <app-toaster></app-toaster>
 
 <div class="container px-0 app">
-  <!-- <nav class="fixed-top navbar navbar-expand-md bg-faded px-2"> -->
   <nav class="fixed-top navbar bg-body-tertiary navbar-expand-md px-3 bg-faded">
     <div [routerLink]="['/login']" class="navbar-brand"><img alt="card2brain-logo" src="assets/ic_card2brain_logo.png" width="50px"> Card2Brain
     </div>
@@ -9,19 +8,18 @@
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbar">
-      <form class="form-inline ms-auto">
+    <div class="collapse navbar-collapse" id="navbar" >
+      <form class="form-inline ms-auto" [hidden]="userLoginService.loggedIn">
         <button class="btn btn-secondary ms-1" type="button"
-                [routerLink]="['/signup']"
-                [hidden]="userLoginService.loggedIn">Signup</button>
+                [routerLink]="['/signup']">Signup</button>
         <button class="btn btn-primary ms-1" type="button"
-                [routerLink]="['/login']"
-                [hidden]="userLoginService.loggedIn">Login</button>
-        <button class="btn btn-primary ms-1" type="button"
-                (click)="logout()"
-                [hidden]="!userLoginService.loggedIn">Logout</button>
+                [routerLink]="['/login']">Login</button>
       </form>
-      <h6 [hidden]="!userLoginService.loggedIn">&nbsp;&nbsp;{{userLoginService.loggedUser}}</h6>
+      <form class="form-inline ms-auto" [hidden]="!userLoginService.loggedIn">
+        <button class="btn btn-primary ms-1" type="button"
+                (click)="logout()">Logout</button>
+        <span>&nbsp;&nbsp;{{userLoginService.loggedUser}}</span>
+      </form>
     </div>
   </nav>
 

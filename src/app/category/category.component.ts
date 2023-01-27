@@ -6,18 +6,22 @@ import {
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserLoginService} from "../services/user-login.service";
 import {ToastService} from "../services/toast.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
 })
-export class CategoryComponent implements OnInit{
+export class CategoryComponent implements OnInit, OnDestroy{
 
   categories: Array<InfoDto> | undefined;
   private userId: number | undefined;
 
   hidden:boolean = true
+
+  private categorySub : Subscription | undefined
+  private userSub : Subscription | undefined
 
   constructor(private readonly learnRestControllerService : LearnRestControllerService,
               private readonly categoryRestControllerService:CategoryRestControllerService,
@@ -27,25 +31,32 @@ export class CategoryComponent implements OnInit{
               private route: ActivatedRoute,
               private readonly router: Router) { }
 
+  ngOnDestroy(): void {
+    this.categorySub?.unsubscribe()
+    this.userSub?.unsubscribe()
+  }
+
   ngOnInit(): void {
     this.userId = this.userLoginService.getUserId()
     if (this.userId) {
       this.updateCategories();
     }else{
-      this.toastService.showErrorToast('error', 'Please log in');
+      this.router.navigate(["/login"])
     }
   }
 
   updateCategories():void{
     if (this.userId != undefined || this.userId != null)  {
-      this.userRestControllerService.getInfosOfUser(this.userId).subscribe(
-        data => {
+      this.userSub = this.userRestControllerService.getInfosOfUser(this.userId).subscribe({
+        next: (data) => {
           this.categories = data
-        },err =>{
-          if( !this.toastService.showHttpErrorToast(err))
-            this.toastService.showErrorToast('error','update category gone wrong',);
+        },
+        error: (err) => {
+          if (!this.toastService.showHttpErrorToast(err))
+            this.toastService.showErrorToast('error', 'update category gone wrong',);
           console.log(err);
-        })
+        }
+      });
     }
   }
 
@@ -54,24 +65,28 @@ export class CategoryComponent implements OnInit{
       categoryName: "NewCategory",
       owner: this.userId
     }
-    this.categoryRestControllerService.createCategory(category).subscribe(
-    data =>{
-      this.router.navigate(["/managecards/",data.id])
-    },err =>{
-      if( !this.toastService.showHttpErrorToast(err))
-        this.toastService.showErrorToast('error','create category gone wrong',);
-      console.log(err);
+    this.categorySub = this.categoryRestControllerService.createCategory(category).subscribe({
+      next: (data) => {
+        this.router.navigate(["/managecards/", data.id])
+      },
+      error: (err) => {
+        if (!this.toastService.showHttpErrorToast(err))
+          this.toastService.showErrorToast('error', 'create category gone wrong',);
+        console.log(err);
+      }
     })
   }
 
   onDeleteCategory(category: InfoDto) {
-    this.categoryRestControllerService.deleteCategory(category.categoryId??0).subscribe(
-      data =>{
+    this.categorySub = this.categoryRestControllerService.deleteCategory(category.categoryId??0).subscribe({
+      next: (data) => {
         this.updateCategories()
-      },err =>{
-        if( !this.toastService.showHttpErrorToast(err))
-          this.toastService.showErrorToast('error','delete category gone wrong',);
+      },
+      error: (err) => {
+        if (!this.toastService.showHttpErrorToast(err))
+          this.toastService.showErrorToast('error', 'delete category gone wrong',);
         console.log(err);
-      })
+      }
+    })
   }
 }

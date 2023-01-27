@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       })
   }
   ngOnInit() {
-    if(this.userLoginService.tokenSet()){
+    if(this.userLoginService.isTokenSet()){
       this.afterLoggedIn()
     }
     this.loginForm = this.formBuilder.group({
