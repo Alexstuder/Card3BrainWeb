@@ -46,7 +46,7 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
           this.cardsToPlay = data;
           this.cardArrayLength = data.length
           this.actualCardNumber = 0;
-          if (this.cardsToPlay && this.cardsToPlay.length >= 0) {
+          if (this.cardsToPlay && this.cardsToPlay.length > 0) {
             this.finished = false
             this.actualCardNumber = 0;
             this.showQuestion(true);
@@ -83,7 +83,6 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
     this.showQuestion(!this.actualQuestion);
   }
   showQuestion(showAnswer: boolean) {
-
     if (this.cardsToPlay !== undefined) {
       if (this.actualCardNumber < this.cardsToPlay!.length ?? 0) {
         this.actualQuestion = showAnswer;

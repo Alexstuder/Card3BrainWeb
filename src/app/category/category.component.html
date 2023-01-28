@@ -1,5 +1,5 @@
 <section class="container legend">
-  <div style="display: flex; justify-content: space-between;">
+  <div class="mb-3" style="display: flex; justify-content: space-between;">
     <h1 class="component-title">choose a category</h1>
     <div class="d-flex align-items-end">
       <span (click)=onCreateCategory() class="cmd-buttons"
@@ -7,10 +7,10 @@
         New <i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;</span>
     </div>
   </div>
-  <ul class="list-group" *ngFor="let category of categories; let i = index">
+  <ul class="list-group" *ngFor="let category of categories; let i = index" >
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <div class="onTheLeft">
-        <div class="col-sm-12">
+        <div class="col-sm-12" data-toggle="tooltip">
           <input type="text" readonly class="form-control-plaintext" value={{category.categoryName}}
                  routerLink="/play/{{category.categoryId}}"
                  data-toggle="tooltip" data-placement="top" title="select category to start learning">
