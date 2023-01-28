@@ -442,7 +442,6 @@ paths:
                   $ref: '#/components/schemas/InfoDto'
       security:
       - bearerAuth: []
-      - oAuthNoScopes: []
   /api/users:
     get:
       tags:
