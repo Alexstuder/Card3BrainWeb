@@ -1,9 +1,9 @@
-<h1 class="mt-4">category</h1>
+<h1 class="component-title">category</h1>
 <form class="row row-cols-lg-auto g-3 align-items-center">
   <div class="col-9">
     <div class="input-group">
       <input type="text" class="form-control" id="categoryNameTextField"
-             #categoryNameTextField (keydown.enter)=onClickSubmit() (keydown.enter)="categoryNameTextField.blur()">
+             #categoryNameTextField (keydown.enter)="onClickSubmit() ; categoryNameTextField.blur()">
     </div>
   </div>
 

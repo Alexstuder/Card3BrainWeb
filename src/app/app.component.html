@@ -9,16 +9,16 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbar" >
-      <form class="form-inline ms-auto" [hidden]="userLoginService.loggedIn">
+      <form class="form-inline ms-auto" [hidden]="loggedIn">
         <button class="btn btn-secondary ms-1" type="button"
                 [routerLink]="['/signup']">Signup</button>
         <button class="btn btn-primary ms-1" type="button"
                 [routerLink]="['/login']">Login</button>
       </form>
-      <form class="form-inline ms-auto" [hidden]="!userLoginService.loggedIn">
+      <form class="form-inline ms-auto" [hidden]="!loggedIn">
         <button class="btn btn-primary ms-1" type="button"
                 (click)="logout()">Logout</button>
-        <span>&nbsp;&nbsp;{{userLoginService.loggedUser}}</span>
+        <span>&nbsp;&nbsp;{{loggedUser}}</span>
       </form>
     </div>
   </nav>

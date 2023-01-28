@@ -1,6 +1,6 @@
 <section class="container legend">
   <div style="display: flex; justify-content: space-between;">
-    <h1 class="mt-4">choose a category</h1>
+    <h1 class="component-title">choose a category</h1>
     <div class="d-flex align-items-end">
       <span (click)=onCreateCategory() class="cmd-buttons"
             data-toggle="tooltip" data-placement="bottom" title="Create new category">
@@ -17,17 +17,18 @@
         </div>
       </div>
       <div class="onTheRight">
-          <span class="badge bg-primary rounded-pill"
-                data-toggle="tooltip" data-placement="top" title="actual to learn / total cards">
-            {{category.toLearn}}/{{category.numberOfCards}}</span>
-          <span>&nbsp;</span>
+        <span class="badge bg-primary rounded-pill"
+              data-toggle="tooltip" data-placement="top" title="actual to learn / total cards">
+          {{category.toLearn}}/{{category.numberOfCards}}</span>
+        <span>&nbsp;&nbsp;</span>
         <span (click)=onDeleteCategory(category) class="cmd-buttons"
-              data-toggle="tooltip" data-placement="top" title="Delete category">
-          <i class="fa fa-trash"></i></span>
-          <span class="cmd-buttons"
-                routerLink="/managecards/{{category.categoryId}}"
-                data-toggle="tooltip" data-placement="top" title="Edit category">
-            <i class="fa fa-edit"></i></span>
+            data-toggle="tooltip" data-placement="top" title="Delete category">
+        <i class="fa fa-trash"></i></span>
+
+        <span class="cmd-buttons"
+              routerLink="/managecards/{{category.categoryId}}"
+              data-toggle="tooltip" data-placement="top" title="Edit category">
+          <i class="fa fa-edit"></i></span>
         </div>
     </li>
   </ul>
