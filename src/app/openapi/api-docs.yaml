@@ -3,7 +3,7 @@ info:
   title: OpenAPI definition
   version: v0
 servers:
-- url: http://localhost:9001
+- url: http://167.86.76.193:9001
   description: Generated server url
 paths:
   /api/users/:
