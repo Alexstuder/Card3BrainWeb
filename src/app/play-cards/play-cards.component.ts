@@ -72,6 +72,27 @@ export class PlayCardsComponent implements OnInit, OnDestroy{
     tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
+
+    let questionbox = document.getElementById('questionbox');
+    if (questionbox) {
+      let hamming = new Hammer(questionbox);
+      hamming.on("panleft panright tap", (ev) => {
+        if (ev.type == "panleft") {
+          if(!this.actualQuestion) {
+            this.onTrue();
+          }
+        }
+        if (ev.type == "panright") {
+          if(!this.actualQuestion) {
+            this.onFalse();
+          }
+        }
+        if (ev.type == "tap") {
+          this.onClickCard()
+        }
+        //console.log(ev.type + " gesture detected.");
+      });
+    }
   }
   ngOnDestroy(): void {
   }

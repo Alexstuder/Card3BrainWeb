@@ -1,6 +1,7 @@
 import {AfterContentChecked, Component, OnInit} from '@angular/core';
 import { ToastService } from './services/toast.service';
 import {UserLoginService} from "./services/user-login.service";
+//const hammerjs = require('node_modules/hammerjs');
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,8 @@ import {UserLoginService} from "./services/user-login.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterContentChecked{
+
+  //hammerjs = hammerjs;
 
   constructor(private readonly toastService: ToastService,
               readonly userLoginService: UserLoginService) {
