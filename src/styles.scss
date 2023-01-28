@@ -6,50 +6,13 @@ $fa-font-path : '../node_modules/font-awesome/fonts';
 body {
   font-size: 18px;
   line-height: 1.58;
-  background: #6699FF;
-  background: -webkit-linear-gradient(to left, #336699, #228899);
-  background: linear-gradient(to left, #336699, #228899);
+  background: #301E67;
+  background: -webkit-linear-gradient(to left, #5B8FB9, #B6EADA);
+  background: linear-gradient(to left, #5B8FB9, #B6EADA);
   color: #333;
   padding-bottom: 70px;
   padding-top: 40px;
 }
 .component-title {
-  color: #228899;
-}
-.sub-para {
-  font-size: small;
-}
-.todo-info {
-  margin-bottom: 6px;
-}
-.todo-listinfo {
-  margin-bottom: 30px;
-}
-.tooltip-container {
-  text-align: center;
-  z-index: 100;
-  position: fixed;
-  padding: 6px 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: initial;
-  color: white;
-  width: auto;
-  background: #111111ee;
-  box-sizing: border-box;
-  opacity: 0;
-  transform: translate(-50%, -30%);
-  animation: tooltip-slide 0.18s ease-out 0.5s;
-  animation-fill-mode: forwards;
-  pointer-events: none;
-}
-@keyframes tooltip-slide {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -30%);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+  color: #03001C;
 }
