@@ -1,14 +1,17 @@
 
 .app {
-  background-color:#FFF;
-  min-height: 9800vh;
+  background-color:#FAFAFA;
+  min-height: 100vh;
 }
 
 main {
   padding-top: 30px;
   padding-bottom: 70px;
   min-height: 600px;
-  flex: 1;
+  width: 95%;
 }
 
 
+.menu-spacer {
+  flex: 1 1 auto;
+}
