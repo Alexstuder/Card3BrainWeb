@@ -35,14 +35,16 @@ export class UsersComponent implements OnInit, OnDestroy{
   }
 
   useOpenApiService(): void {
-    this.subscription = this.userRestControllerService.getAllUsers().subscribe(
-      data => {
+    this.subscription = this.userRestControllerService.getAllUsers().subscribe({
+      next: (data) => {
         this.userList = data;
-        },err =>{
-        if( !this.toastService.showHttpErrorToast(err))
-          this.toastService.showErrorToast('error','get all user gone wrong',);
-        console.log(err);
-      })
+      },
+      error: (err) =>{
+      if( !this.toastService.showHttpErrorToast(err))
+        this.toastService.showErrorToast('error','get all user gone wrong',);
+      console.log(err);
+      }
+    })
   }
 
   onDelete(user: UserDto) {

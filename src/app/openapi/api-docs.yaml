@@ -490,11 +490,11 @@ components:
         toLearn:
           type: integer
           format: int32
+        categoryName:
+          type: string
         categoryId:
           type: integer
           format: int64
-        categoryName:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http
