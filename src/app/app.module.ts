@@ -22,6 +22,12 @@ import 'hammerjs'
 import {
   HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG}
   from '@angular/platform-browser';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {MatButtonModule} from "@angular/material/button";
+import {MatListModule} from "@angular/material/list";
+import {MatIconModule} from "@angular/material/icon";
 
 
 export function apiConfigFactory (): Configuration  {
@@ -30,8 +36,6 @@ export function apiConfigFactory (): Configuration  {
   }
   return new Configuration(params);
 }
-
-
 
 @NgModule({
   declarations: [
@@ -54,6 +58,13 @@ export function apiConfigFactory (): Configuration  {
     ReactiveFormsModule,
     MatTableModule,
     MatProgressSpinnerModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,29 +1,14 @@
 
 .app {
   background-color:#FFF;
-  min-height: 100vh;
+  min-height: 9800vh;
 }
-
-@media (max-width: 767px) {
-  .navbar-collapse {
-    margin-top: 10px;
-  }
-}
-
-.nav-link:hover {
-  background-color:#DDD;
-}
-
-.navbar {
-  -webkit-box-shadow: 0 8px 6px -6px #301E67;
-  -moz-box-shadow: 0 8px 6px -6px #301E67;
-  background: #B6EADA;
-}
-
 
 main {
-  padding-top: 70px;
+  padding-top: 30px;
   padding-bottom: 70px;
+  min-height: 600px;
+  flex: 1;
 }
 
 

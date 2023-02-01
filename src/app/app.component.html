@@ -1,6 +1,42 @@
 <app-toaster></app-toaster>
 
-<div class="container px-0 app">
+<div class="container-fluid min-vh-100 app">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Responsive Navigation</span>
+      <span class="menu-spacer"></span>
+      <div fxShow="true" fxHide.lt-md>
+        <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+        <a href="#" mat-button>Menu Item 1</a>
+        <a href="#" mat-button>Menu Item 2</a>
+        <a href="#" mat-button>Menu Item 3</a>
+        <a href="#" mat-button>Menu Item 4</a>
+        <a href="#" mat-button>Menu Item 5</a>
+        <a href="#" mat-button>Menu Item 6</a>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container [fxFlex.lt-xl]="">
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+        <a href="#" mat-list-item>Menu Item 1</a>
+        <a href="#" mat-list-item>Menu Item 2</a>
+        <a href="#" mat-list-item>Menu Item 3</a>
+        <a href="#" mat-list-item>Menu Item 4</a>
+        <a href="#" mat-list-item>Menu Item 5</a>
+        <a href="#"mat-list-item>Menu Item 6</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-container>
+  <!--
   <nav class="fixed-top navbar bg-body-tertiary navbar-expand-md px-3 bg-faded">
     <div [routerLink]="['/login']" class="navbar-brand"><img alt="card2brain-logo" src="assets/ic_card2brain_logo.png" width="50px"> Card2Brain
     </div>
@@ -23,7 +59,9 @@
     </div>
   </nav>
 
-  <main class="px-3 mt-0 main">
+
+
     <router-outlet></router-outlet>
   </main>
+  -->
 </div>
