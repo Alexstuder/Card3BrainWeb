@@ -5,7 +5,6 @@ api/api.ts
 api/authenticationController.service.ts
 api/cardRestController.service.ts
 api/categoryRestController.service.ts
-api/demoController.service.ts
 api/healthCheck.service.ts
 api/learnRestController.service.ts
 api/userRestController.service.ts

@@ -39,23 +39,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/UserDto'
-    post:
-      tags:
-      - user-rest-controller
-      operationId: createUser
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserDto'
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/UserDto'
       security:
       - bearerAuth: []
     delete:
@@ -84,7 +67,7 @@ paths:
       - category-rest-controller
       operationId: getAllCategoriesOfUser
       parameters:
-      - name: categoryId
+      - name: userId
         in: query
         required: true
         schema:
@@ -309,26 +292,6 @@ paths:
                 - 511 NETWORK_AUTHENTICATION_REQUIRED
       security:
       - bearerAuth: []
-  /api/users/login:
-    post:
-      tags:
-      - user-rest-controller
-      operationId: login
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LoginDto'
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/UserDto'
-      security:
-      - bearerAuth: []
   /api/learns/:
     get:
       tags:
@@ -458,30 +421,6 @@ paths:
                   $ref: '#/components/schemas/UserDto'
       security:
       - bearerAuth: []
-  /api/demo-controller:
-    get:
-      tags:
-      - demo-controller
-      operationId: sayHello
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: string
-  /:
-    get:
-      tags:
-      - health-check
-      operationId: index
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: string
 components:
   schemas:
     UserDto:
@@ -522,13 +461,6 @@ components:
         categoryId:
           type: integer
           format: int64
-    LoginDto:
-      type: object
-      properties:
-        mailAddress:
-          type: string
-        password:
-          type: string
     LearnDto:
       type: object
       properties:
@@ -541,6 +473,13 @@ components:
       type: object
       properties:
         token:
+          type: string
+    LoginDto:
+      type: object
+      properties:
+        mailAddress:
+          type: string
+        password:
           type: string
     InfoDto:
       type: object
