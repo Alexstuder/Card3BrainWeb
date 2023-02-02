@@ -28,6 +28,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatButtonModule} from "@angular/material/button";
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
+import { InfoComponent } from './info/info.component';
 
 
 export function apiConfigFactory (): Configuration  {
@@ -47,7 +48,8 @@ export function apiConfigFactory (): Configuration  {
     ToastComponent,
     ToasterComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,

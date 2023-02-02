@@ -6,6 +6,7 @@ import {ManageCardsComponent} from "./manage-cards/manage-cards.component";
 import {PlayCardsComponent} from "./play-cards/play-cards.component";
 import {SignupComponent} from "./signup/signup.component";
 import {LoginComponent} from "./login/login.component";
+import {InfoComponent} from "./info/info.component";
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'info',
+    component: InfoComponent
   },
   {
     path: '',

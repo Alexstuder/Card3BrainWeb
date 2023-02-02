@@ -1,0 +1,14 @@
+ch.zhaw.card2brain
+ch.zhaw.card2brain.auth
+ch.zhaw.card2brain.common
+ch.zhaw.card2brain.config
+ch.zhaw.card2brain.controller
+ch.zhaw.card2brain.dto
+ch.zhaw.card2brain.exception
+ch.zhaw.card2brain.model
+ch.zhaw.card2brain.objectmapper
+ch.zhaw.card2brain.repository
+ch.zhaw.card2brain.RunsWithH2
+ch.zhaw.card2brain.services
+ch.zhaw.card2brain.TestData
+ch.zhaw.card2brain.util
