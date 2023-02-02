@@ -1,9 +1,11 @@
 <h1>Backend Live Info: </h1>
-<p>{{healtResponse}}</p>
+<p>Backend Verion: {{backendInfo.appVersion}}</p>
+<p>Backend build time: {{backendInfo.buildTime}}</p>
+<p>{{backendInfo.app_IS_RUNNING}}</p>
 <h2>Additional Infos:</h2>
 <div>
-  <a href="http://167.86.76.193:9001/swagger-ui.html" mat-button>Swagger</a>
+  <p>Infos about the Backend Rest-Enpoints: <a href="http://167.86.76.193:9001/swagger-ui.html">Swagger</a></p>
 </div>
 <div>
-  <a href="../assets/javadoc/index.html" mat-button>Javadoc</a>
+  <p>Backend documentation: <a href="../assets/javadoc/index.html">Javadoc</a></p>
 </div>

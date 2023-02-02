@@ -1,28 +1,44 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
-import {AuthenticationControllerService, HealthCheckService, UserRestControllerService} from "../openapi-gen";
+import {HealthCheckControllerService} from "../openapi-gen";
 import {ToastService} from "../services/toast.service";
-import {UserLoginService} from "../services/user-login.service";
-import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
+
+interface infoObject {
+  appVersion: string;
+  app_IS_RUNNING: string;
+  buildTime: string;
+  swaggerUrl: string;
+}
+
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.scss']
 })
+
 export class InfoComponent implements OnInit{
   private healthSub: Subscription |undefined;
 
-  healtResponse: String =""
+  backendInfo :infoObject = {
+    appVersion: "",
+    app_IS_RUNNING: "not",
+    buildTime: "0",
+    swaggerUrl: ""};
 
-  constructor( private readonly healthCheckRestControllerService : HealthCheckService,
+  constructor( private readonly healthCheckRestControllerService : HealthCheckControllerService,
                private readonly toastService: ToastService){}
 
+
+
   ngOnInit(): void {
-    this.healthSub = this.healthCheckRestControllerService.healthCheck().subscribe({
+    this.healthSub = this.healthCheckRestControllerService.healthCheckinfo().subscribe({
       next: (data) => {
-        this.healtResponse = data;
+        try {
+          this.backendInfo = data as unknown as infoObject;
+        }catch (e){
+          this.toastService.showErrorToast('error parsing JSON', " Info String");
+        }
       },
       error: (err) => {
         if (!this.toastService.showHttpErrorToast(err))
@@ -31,7 +47,4 @@ export class InfoComponent implements OnInit{
       }
     })
   }
-
-
-
 }

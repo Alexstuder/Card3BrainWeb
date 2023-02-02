@@ -3,7 +3,7 @@ info:
   title: OpenAPI definition
   version: v0
 servers:
-- url: http://localhost:9001
+- url: http://167.86.76.193:9001
   description: Generated server url
 paths:
   /api/users/:
@@ -373,8 +373,20 @@ paths:
   /healthCheck:
     get:
       tags:
-      - health-check
+      - health-check-controller
       operationId: healthCheck
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /healthCheck/infos:
+    get:
+      tags:
+      - health-check-controller
+      operationId: healthCheckinfo
       responses:
         "200":
           description: OK
@@ -500,3 +512,9 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    oAuthNoScopes:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://api.example.com/oauth2/authorize
+          scopes: { }

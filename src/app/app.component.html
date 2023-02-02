@@ -14,7 +14,7 @@
         <a [routerLink]="['/signup']" [hidden]="loggedIn" mat-button>Signup</a>
         <a [routerLink]="['/login']" [hidden]="loggedIn" mat-button>Login</a>
         <a (click)="logout()" [hidden]="!loggedIn" mat-button>Logout</a>
-        <span mat-button [hidden]="!loggedIn">{{loggedUser}}</span>
+        <span [hidden]="!loggedIn">{{loggedUser}}</span>
         <a [routerLink]="['/info']" mat-button>?</a>
       </div>
     </mat-toolbar-row>
@@ -27,7 +27,7 @@
         <a [routerLink]="['/signup']" [hidden]="loggedIn" mat-list-item>Signup</a>
         <a [routerLink]="['/login']" [hidden]="loggedIn" mat-list-item>Login</a>
         <a (click)="logout()" [hidden]="!loggedIn" mat-list-item>Logout</a>
-        <span mat-list-item [hidden]="!loggedIn">{{loggedUser}}</span>
+        <span  [hidden]="!loggedIn">{{loggedUser}}</span>
         <a [routerLink]="['/info']" mat-list-item>?</a>
       </mat-nav-list>
     </mat-sidenav>
@@ -35,32 +35,4 @@
       <router-outlet></router-outlet>
     </main>
   </mat-sidenav-container>
-  <!--
-  <nav class="fixed-top navbar bg-body-tertiary navbar-expand-md px-3 bg-faded">
-    <div [routerLink]="['/login']" class="navbar-brand"><img alt="card2brain-logo" src="assets/ic_card2brain_logo.png" width="50px"> Card2Brain
-    </div>
-
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbar" >
-      <form class="form-inline ms-auto" [hidden]="loggedIn">
-        <button class="btn btn-secondary ms-1" type="button"
-                [routerLink]="['/signup']">Signup</button>
-        <button class="btn btn-primary ms-1" type="button"
-                [routerLink]="['/login']">Login</button>
-      </form>
-      <form class="form-inline ms-auto" [hidden]="!loggedIn">
-        <button class="btn btn-primary ms-1" type="button"
-                (click)="logout()">Logout</button>
-        <span>&nbsp;&nbsp;{{loggedUser}}</span>
-      </form>
-    </div>
-  </nav>
-
-
-
-    <router-outlet></router-outlet>
-  </main>
-  -->
 </div>
