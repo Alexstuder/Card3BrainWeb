@@ -115,10 +115,10 @@ export class ManageCardsComponent implements OnInit, OnDestroy {
     this.modalButtonText = 'create card'
     this.display='block';
     if (this.answerTextField !== undefined) {
-      this.answerTextField.nativeElement.value = "Your answer"
+      //this.answerTextField.nativeElement.value = "Your answer"
     }
     if (this.questionTextField !== undefined) {
-      this.questionTextField.nativeElement.value = "Your question"
+      //this.questionTextField.nativeElement.value = "Your question"
     }
   }
 
