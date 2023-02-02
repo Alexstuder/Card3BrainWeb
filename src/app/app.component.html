@@ -14,7 +14,7 @@
         <a [routerLink]="['/signup']" [hidden]="loggedIn" mat-button>Signup</a>
         <a [routerLink]="['/login']" [hidden]="loggedIn" mat-button>Login</a>
         <a (click)="logout()" [hidden]="!loggedIn" mat-button>Logout</a>
-        <span [hidden]="!loggedIn">{{loggedUser}}</span>
+        <span [hidden]="!loggedIn" style="font-size:12.0pt">{{loggedUser}}</span>
         <a [routerLink]="['/info']" mat-button>?</a>
       </div>
     </mat-toolbar-row>
@@ -27,7 +27,7 @@
         <a [routerLink]="['/signup']" [hidden]="loggedIn" mat-list-item>Signup</a>
         <a [routerLink]="['/login']" [hidden]="loggedIn" mat-list-item>Login</a>
         <a (click)="logout()" [hidden]="!loggedIn" mat-list-item>Logout</a>
-        <span  [hidden]="!loggedIn">{{loggedUser}}</span>
+        <span  [hidden]="!loggedIn" style="font-size:12.0pt">{{loggedUser}}</span>
         <a [routerLink]="['/info']" mat-list-item>?</a>
       </mat-nav-list>
     </mat-sidenav>
