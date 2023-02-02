@@ -6,6 +6,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+## Create a Docker Image and push to Docker Hub
+Run the script "./shellScript/deployToProd.bat". Make sure you are logged in to Docker
+
+## Deploy Docker Container on the Server
+Start the workflow "deploy_to_Production.yaml" from Github. The Script can be found in the folder .RunConfigurations
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
@@ -30,11 +36,8 @@ If openapi-generator-cli is not installe, run `npm i -D @openapitools/openapi-ge
 ## Create an Image for Docker
 docker build  . --tag rojo1/card2brainweb
 
-
 ## Push Dockerimage to DockerHub
 docker card2brainweb push rojo1/card2brainweb:latest
-
-
 
 ## Further help
 
