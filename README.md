@@ -11,7 +11,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * Hammer JS
 * Docker
   
-![Angular](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/angular.png) ![Angular Material](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/angularMaterial.png) ![Bootstrap](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/bootstrap.png) ![JWT](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/JWT.png) ![NPM](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/npmn.png) ![Docker](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/docker.png) ![GitHub](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/gitHub.png) ![NGX](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/ngx.png)
+![Angular](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/angular.png) ![Angular Material](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/angularMaterial.png) ![Bootstrap](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/bootstrap.png) ![JWT](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/JWT.png) ![NPM](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/npm.png) ![Docker](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/docker.png) ![GitHub](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/gitHub.png) ![NGX](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/ngx.png)
 
 <br/>
 
