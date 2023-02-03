@@ -1,6 +1,22 @@
+![Application Diagram](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/logoCard2Brain.png)
 # Card2brainweb
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+
+## Technologies
+* Angular
+* Angular Material
+* Bootstrap
+* JSON Web Tokens (JWT)
+* Hammer JS
+* Docker
+  
+![Angular](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/angular.png) ![Angular Material](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/angularMaterial.png) ![Bootstrap](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/bootstrap.png) ![JWT](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/JWT.png) ![NPM](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/npmn.png) ![Docker](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/docker.png) ![GitHub](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/gitHub.png) ![NGX](https://github.com/RJ2334/Card2Brain/blob/master/doc/logos/ngx.png)
+
+<br/>
+
+## Application Diagramm
+![Application Diagram](https://github.com/RJ2334/Card2Brain/blob/master/doc/diagramms/application.jpg)
 
 ## Development server
 
