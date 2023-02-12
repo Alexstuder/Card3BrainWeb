@@ -1,0 +1,41 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: release
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Node sample
+    env:
+      REMOTE_HOST:  152.67.70.82
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.13.0
+      - run: npm ci
+        name: Login to Docker Hub
+      - uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: npm build-prod && build image && push
+        run: |
+          npm run build-prod
+          docker build  . --tag alexstuder/card2brainweb
+          docker image push alexstuder/card2brainweb:latest
+      # send docker-compos.yml to remote Host
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H $REMOTE_HOST >> ~/.ssh/known_hosts
+      - name: Deploy docker-compose_web.yml with rsync
+        run: rsync -avz docker-compose_web.yml ${{ secrets.DEPLOY_USER }}@$REMOTE_HOST:/home/card2brainweb
+      - name: Execute compose pull and cocker-compose up -d to start the container
+        run: ssh card2brain@$REMOTE_HOST  "docker-compose -f /home/card2brainweb/docker-compose_web.yml pull ; docker-compose -f /home/card2brainweb/docker-compose_web.yml up -d"
