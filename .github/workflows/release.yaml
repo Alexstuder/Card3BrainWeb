@@ -11,7 +11,7 @@ jobs:
     name: Node sample
     environment:
       name: Card2BrainEnvironment
-      url: https://github.com/Alexstuder/Card2Brain/settings/environments
+      url: https://github.com/Alexstuder/Card2Brain
     env:
       REMOTE_HOST:  152.67.70.82
     steps:
