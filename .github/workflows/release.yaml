@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Node sample
+    environment:
+      name: Card2BrainEnvironment
+      url: https://github.com/Alexstuder/Card2Brain/settings/environments
     env:
       REMOTE_HOST:  152.67.70.82
     steps:
