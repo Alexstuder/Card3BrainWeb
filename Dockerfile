@@ -14,6 +14,6 @@ RUN npm run build
 FROM nginx:latest
 # Copy the build output to replace the default nginx contents.
 # be sure to replace app-name with name of your app
-COPY --from=build card2brainweb /usr/share/nginx/html
+COPY --from=build /usr/local/app/dist/card2brainweb /usr/share/nginx/html
 # Expose port 80
 EXPOSE 80
