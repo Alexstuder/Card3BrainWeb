@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Card2BrainEnvironment
     name: Node sample
     env:
       REMOTE_HOST:  152.67.70.82
