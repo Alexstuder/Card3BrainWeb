@@ -29,7 +29,7 @@ import { Configuration }                                     from '../configurat
 })
 export class HealthCheckControllerService {
 
-    protected basePath = 'http://167.86.76.193:9001';
+    protected basePath = 'http://152.67.70.82:9001';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
