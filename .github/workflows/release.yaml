@@ -30,7 +30,8 @@ jobs:
           docker buildx use mulcpubuilder
           # check it
           docker buildx inspect --bootstrap
-          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t alexstuder/card2brainweb:latest --push .
+     #    docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t alexstuder/card2brainweb:latest --push .
+          docker buildx build --platform linux/arm64 -t alexstuder/card2brainweb:latest --push .
       # send docker-compos.yml to remote Host
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
