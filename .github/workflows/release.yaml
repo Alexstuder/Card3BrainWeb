@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Card2BrainEnvironment
     name: Node sample
     environment:
       name: Card2BrainEnvironment
