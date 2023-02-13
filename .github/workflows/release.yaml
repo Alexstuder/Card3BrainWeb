@@ -8,10 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Card2BrainEnvironment
     name: Node sample
-    environment:
-      name: Card2BrainEnvironment
-      url: https://github.com/Alexstuder/Card2Brain
     env:
       REMOTE_HOST:  152.67.70.82
     steps:
@@ -28,8 +26,11 @@ jobs:
       - name: npm build-prod && build image && push
         run: |
           npm run build-prod
-          docker build  . --tag alexstuder/card2brainweb
-          docker image push alexstuder/card2brainweb:latest
+          docker buildx create --name mulcpubuilder
+          docker buildx use mulcpubuilder
+          # check it
+          docker buildx inspect --bootstrap
+          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t alexstuder/card2brainweb:latest --push .
       # send docker-compos.yml to remote Host
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
@@ -39,6 +40,6 @@ jobs:
       - name: Adding Known Hosts
         run: ssh-keyscan -H $REMOTE_HOST >> ~/.ssh/known_hosts
       - name: Deploy docker-compose_web.yml with rsync
-        run: rsync -avz docker-compose_web.yml ${{ secrets.DEPLOY_USER }}@$REMOTE_HOST:/home/card2brainweb
+        run: rsync -avz docker-compose_web.yml ${{ secrets.DEPLOY_USER }}@$REMOTE_HOST:/home/card2brain
       - name: Execute compose pull and cocker-compose up -d to start the container
-        run: ssh card2brain@$REMOTE_HOST  "docker-compose -f /home/card2brainweb/docker-compose_web.yml pull ; docker-compose -f /home/card2brainweb/docker-compose_web.yml up -d"
+        run: ssh ${{ secrets.DEPLOY_USER }}@$REMOTE_HOST  "docker-compose -f /home/card2brain/docker-compose_web.yml pull ; docker-compose -f /home/card2brain/docker-compose_web.yml up -d"

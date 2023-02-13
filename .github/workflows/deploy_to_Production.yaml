@@ -2,13 +2,14 @@ name: Deploy to Production
 
 on:
   push:
-    branches: release
+    branches: test
   workflow_dispatch:
 
 jobs:
   build_and_push:
     name: Build & Push to DockerHub
     runs-on: ubuntu-latest
+    environment: Card2BrainEnvironment
     env:
       REMOTE_HOST: 167.86.76.193
     steps:
