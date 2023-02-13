@@ -2,7 +2,7 @@ version: '3.8'
 ###   CAUTION this is a copy from the backend Card2Brain and has to be identical
 services:
   card2brainweb:
-    image: rojo1/card2brainweb
+    image: alexstuder/card2brainweb
     restart: always
     ports:
       - 80:80
