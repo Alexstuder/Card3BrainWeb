@@ -1,13 +1,19 @@
-FROM nginx:1.23.3
-
-VOLUME /var/cache/nginx
-
-## Copy our default nginx config
-COPY default.conf /etc/nginx/conf.d/
-
-
-RUN rm -rf /usr/share/nginx/html/*
-
-COPY  dist/card2brainweb /usr/share/nginx/html
-
-CMD ["nginx", "-g", "daemon off;"]
+# Step1 : build the app
+# Use official node image as the base image
+FROM node:latest as build
+# Set the working directory
+WORKDIR /usr/local/app
+# Add the source code to app
+COPY ./ /usr/local/app/
+# Install all the dependencies
+RUN npm install
+# Generate the build of the application
+RUN npm run build
+# Step2: serve app with nginx server
+# Use official nginx image as the base image
+FROM nginx:latest
+# Copy the build output to replace the default nginx contents.
+# be sure to replace app-name with name of your app
+COPY --from=build dist/card2brainweb /usr/share/nginx/html
+# Expose port 80
+EXPOSE 80
